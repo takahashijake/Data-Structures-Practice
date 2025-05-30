@@ -20,7 +20,7 @@ class BST{
                     addNodeHelper(currentNode->right, addNode);
                 }
             }
-            else if (addNode->value < currentNode->value){
+            else if (addNode->value <= currentNode->value){
                 if (currentNode->left == nullptr){
                     currentNode->left = addNode;
                 }
@@ -73,6 +73,9 @@ class BST{
             if (current == nullptr){
                 return nullptr;
             }
+            else if (current->value == value){
+                return current;
+            }
             else if (value > current->value){
                 if (current->right == nullptr){
                     return nullptr;
@@ -89,11 +92,7 @@ class BST{
                     deleteNodeSearch(current->left, value);
                 }
             }
-        }
-
-        void deleteNode(int value){
-            //If a node has no children
-            
+            return nullptr;
         }
 
 
@@ -121,7 +120,7 @@ class BST{
                     addNodeHelper(root->right, newNode);
                 }
             }
-            else if (newNode->value < root->value){
+            else if (newNode->value <= root->value){
                 if (root->left == nullptr){
                     root->left = newNode;
                 }
@@ -133,7 +132,9 @@ class BST{
 
         void deleteNode(int value){
             Node* deleteNode = deleteNodeSearch(root, value);
-            
+            if (deleteNode == nullptr){
+                throw std::logic_error("No node exists with the specified value!");
+            }
         }
 
         void inOrderTraversal(){
@@ -157,11 +158,10 @@ class BST{
 int main(){
 
     BST BinaryTree;
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 6; i++){
         int x;
         std::cin >> x;
         BinaryTree.addNode(x);
     }
     BinaryTree.inOrderTraversal();
-    BinaryTree.search(-1);
 }
