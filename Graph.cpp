@@ -66,8 +66,37 @@ class BST{
                 else if (root->right != nullptr){
                     searchHelper(root->left, value);
                 }
+            }
         }
-    }
+
+        Node* deleteNodeSearch(Node* current, int value){
+            if (current == nullptr){
+                return nullptr;
+            }
+            else if (value > current->value){
+                if (current->right == nullptr){
+                    return nullptr;
+                }
+                else if (current->right != nullptr){
+                    deleteNodeSearch(current->right, value);
+                }
+            }
+            else if (value < current->value){
+                if (current->left == nullptr){
+                    return nullptr;
+                }
+                else if (current->left != nullptr){
+                    deleteNodeSearch(current->left, value);
+                }
+            }
+        }
+
+        void deleteNode(int value){
+            //If a node has no children
+            
+        }
+
+
 
     public:
 
@@ -101,6 +130,11 @@ class BST{
                 }
             }
         }   
+
+        void deleteNode(int value){
+            Node* deleteNode = deleteNodeSearch(root, value);
+            
+        }
 
         void inOrderTraversal(){
             inOrderTraversalHelper(root);
