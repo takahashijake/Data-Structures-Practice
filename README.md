@@ -1,5 +1,1 @@
-# DataStructuresPractice
-# DataStructuresPractice
-# DataStructuresPractice
-# DataStructuresPractice
-# Data-Structures-Practice
+This is all of my work related to my practice and studying of everything related to Data Structures and Algorithm
