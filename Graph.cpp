@@ -4,6 +4,7 @@ class BST{
 
     private:
         struct Node{
+            Node* parent;
             Node* left;
             Node* right;
             int value;
@@ -14,6 +15,7 @@ class BST{
         void addNodeHelper(Node* currentNode, Node* addNode){
             if (addNode->value > currentNode->value){
                 if (currentNode->right == nullptr){
+                    addNode->parent = currentNode;
                     currentNode->right = addNode;
                 }
                 else{
@@ -22,6 +24,7 @@ class BST{
             }
             else if (addNode->value <= currentNode->value){
                 if (currentNode->left == nullptr){
+                    addNode->parent = currentNode;
                     currentNode->left = addNode;
                 }
                 else{
@@ -81,15 +84,15 @@ class BST{
                     return nullptr;
                 }
                 else if (current->right != nullptr){
-                    deleteNodeSearch(current->right, value);
+                    return deleteNodeSearch(current->right, value);
                 }
             }
-            else if (value < current->value){
+            else if (value <= current->value){
                 if (current->left == nullptr){
                     return nullptr;
                 }
                 else if (current->left != nullptr){
-                    deleteNodeSearch(current->left, value);
+                    return deleteNodeSearch(current->left, value);
                 }
             }
             return nullptr;
@@ -107,6 +110,7 @@ class BST{
             Node* newNode = new Node;
             newNode->left = nullptr;
             newNode->right = nullptr;
+            newNode->parent = nullptr;
             newNode->value = value;
 
             if (root == nullptr){
@@ -115,6 +119,7 @@ class BST{
             else if (newNode->value > root->value){ //If value is greater than root, go in right subtree
                 if (root->right == nullptr){
                     root->right = newNode;
+                    newNode->parent = root;
                 }
                 else{
                     addNodeHelper(root->right, newNode);
@@ -123,6 +128,7 @@ class BST{
             else if (newNode->value <= root->value){
                 if (root->left == nullptr){
                     root->left = newNode;
+                    newNode->parent = root;
                 }
                 else{
                     addNodeHelper(root->left, newNode);
@@ -133,8 +139,14 @@ class BST{
         void deleteNode(int value){
             Node* deleteNode = deleteNodeSearch(root, value);
             if (deleteNode == nullptr){
-                throw std::logic_error("No node exists with the specified value!");
+                std::cout << "Current node is a nullptr" << std::endl;
+                //throw std::logic_error("No node exists with the specified value!");
             }
+            else if (deleteNode->left == nullptr && deleteNode->right == nullptr && value > deleteNode->parent->value){
+                deleteNode->parent->right = nullptr;
+                delete deleteNode;
+                
+            }   
         }
 
         void inOrderTraversal(){
@@ -163,5 +175,8 @@ int main(){
         std::cin >> x;
         BinaryTree.addNode(x);
     }
+    BinaryTree.inOrderTraversal();
+    BinaryTree.deleteNode(9);
+    BinaryTree.deleteNode(5);
     BinaryTree.inOrderTraversal();
 }
