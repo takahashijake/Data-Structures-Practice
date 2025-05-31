@@ -142,11 +142,37 @@ class BST{
                 std::cout << "Current node is a nullptr" << std::endl;
                 //throw std::logic_error("No node exists with the specified value!");
             }
+            
+            else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right == nullptr){
+                delete deleteNode;
+            }
+            else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right != nullptr){
+                deleteNode->right->parent = nullptr;
+                root = deleteNode->right;
+                delete deleteNode;
+            }
+            //Case 1: deleteNode has no children 
             else if (deleteNode->left == nullptr && deleteNode->right == nullptr && value > deleteNode->parent->value){
                 deleteNode->parent->right = nullptr;
                 delete deleteNode;
-                
-            }   
+            }
+            else if (deleteNode->left == nullptr && deleteNode->right == nullptr && value <= deleteNode->parent->value){
+                deleteNode->parent->left = nullptr;
+                delete deleteNode;
+            }
+            //Case 2: deleteNode has 1 child
+            else if (deleteNode->left == nullptr && deleteNode->right != nullptr && value > deleteNode->parent->value){
+                deleteNode->parent->right = deleteNode->right;
+                deleteNode->right->parent = deleteNode->parent;
+                delete deleteNode;
+            }
+            else if (deleteNode->left != nullptr && deleteNode->right == nullptr && value > deleteNode->parent->value){
+                deleteNode->parent->right = deleteNode->left;
+                deleteNode->left->parent = deleteNode->parent;
+            }
+            else if (deleteNode->left == nullptr && deleteNode->right != nullptr && value <= deleteNode->parent->value){
+
+            }
         }
 
         void inOrderTraversal(){
@@ -170,13 +196,10 @@ class BST{
 int main(){
 
     BST BinaryTree;
-    for (int i = 0; i < 6; i++){
-        int x;
-        std::cin >> x;
-        BinaryTree.addNode(x);
-    }
+    BinaryTree.addNode(1);
+    BinaryTree.addNode(2);
     BinaryTree.inOrderTraversal();
-    BinaryTree.deleteNode(9);
-    BinaryTree.deleteNode(5);
+    BinaryTree.deleteNode(1);
+    BinaryTree.deleteNode(2);
     BinaryTree.inOrderTraversal();
 }
