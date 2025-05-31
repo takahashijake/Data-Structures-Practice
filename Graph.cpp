@@ -42,6 +42,7 @@ class BST{
         }
 
         void deleteBST(Node* rootNode){
+            
             if (rootNode != nullptr){
                 deleteBST(rootNode->left);
                 deleteBST(rootNode->right);
@@ -142,8 +143,9 @@ class BST{
                 std::cout << "Current node is a nullptr" << std::endl;
                 //throw std::logic_error("No node exists with the specified value!");
             }
-            
+
             else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right == nullptr){
+                root = nullptr;
                 delete deleteNode;
             }
             else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right != nullptr){
