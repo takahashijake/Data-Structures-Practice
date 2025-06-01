@@ -107,7 +107,29 @@ class BST{
         }
 
         void swapNodes(Node* firstNode, Node* secondNode){
-            
+
+            //The node I want to swap the secondNode with is the root
+            if (firstNode == root){
+                //Because the firstNode is the root, the secondNode is guaranteed to have a parent 
+                if (secondNode->parent->left == secondNode){
+                    Node* temp = secondNode;
+                    secondNode = firstNode;
+                    secondNode->parent->left = temp->parent->left;
+                    secondNode->left = temp->left;
+                    secondNode->right = temp->right;
+                    firstNode = temp;
+                    delete temp;
+                }
+                else if (secondNode->parent->right == secondNode){
+                    Node* temp = secondNode;
+                    secondNode = firstNode;
+                    secondNode->parent->right = temp->parent->right;
+                    secondNode->right = temp->right;
+                    secondNode->left = temp->left;
+                    firstNode = temp;
+                    delete temp;
+                }
+            }
         }
 
 
@@ -199,6 +221,11 @@ class BST{
         void search(int value){
             searchHelper(root, value);
         }
+
+        void nodeSwap(int firstValue, int secondValue){
+            Node* firstNode = deleteNodeSearch(root, firstValue);
+            Node* secondNode = deleteNodeSearch(root, secondValue);
+        }
     
        ~BST(){
             deleteBST(root);
@@ -213,9 +240,9 @@ int main(){
 
     BST BinaryTree;
     BinaryTree.addNode(1);
+    BinaryTree.addNode(3);
     BinaryTree.addNode(2);
     BinaryTree.inOrderTraversal();
-    BinaryTree.deleteNode(1);
-    BinaryTree.deleteNode(2);
+    BinaryTree.nodeSwap(1, 2);
     BinaryTree.inOrderTraversal();
 }
