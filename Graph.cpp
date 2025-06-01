@@ -99,6 +99,16 @@ class BST{
             return nullptr;
         }
 
+        Node* findSuccessor(Node* rightDeleteNode){
+            while (rightDeleteNode->left != nullptr){
+                findSuccessor(rightDeleteNode->left);
+            }
+            return rightDeleteNode->left;
+        }
+
+        void swapNodes(Node* firstNode, Node* secondNode){
+            
+        }
 
 
     public:
@@ -143,7 +153,7 @@ class BST{
                 std::cout << "Current node is a nullptr" << std::endl;
                 //throw std::logic_error("No node exists with the specified value!");
             }
-
+            //Case 0?: deleteNode is the root
             else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right == nullptr){
                 root = nullptr;
                 delete deleteNode;
@@ -152,6 +162,10 @@ class BST{
                 deleteNode->right->parent = nullptr;
                 root = deleteNode->right;
                 delete deleteNode;
+            }
+            else if (deleteNode == root && deleteNode->left != nullptr && deleteNode->right != nullptr){
+                Node* successor = findSuccessor(deleteNode->right);
+                
             }
             //Case 1: deleteNode has no children 
             else if (deleteNode->left == nullptr && deleteNode->right == nullptr && value > deleteNode->parent->value){
