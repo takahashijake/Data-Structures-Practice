@@ -96,3 +96,4 @@ BST::Node* HelperFunctions::findSuccessor(BST::Node* rightDeleteNode){
     }
     return rightDeleteNode->left;
 }
+
