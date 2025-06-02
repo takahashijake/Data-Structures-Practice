@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class BST : public HelperFunctions{
+class BST{
 
     public:
         struct Node{

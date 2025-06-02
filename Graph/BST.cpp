@@ -1,5 +1,6 @@
-#include "BST.h"
 #include "helper.h"
+#include "BST.h"
+#include <iostream>
 
 BST::BST(){
 
@@ -23,7 +24,7 @@ void BST::addNode(int value){
             newNode->parent = root;
         }
         else{
-            addNodeHelper(root->right, newNode);
+            HelperFunctions::addNodeHelper(root->right, newNode);
         }
     }
     else if (newNode->value <= root->value){
@@ -32,13 +33,13 @@ void BST::addNode(int value){
             newNode->parent = root;
         }
         else{
-            addNodeHelper(root->left, newNode);
+            HelperFunctions::addNodeHelper(root->left, newNode);
         }
     }
 }
 
 void BST::deleteNode(int value){
-    Node* deleteNode = deleteNodeSearch(root, value);
+    Node* deleteNode = HelperFunctions::deleteNodeSearch(root, value);
     if (deleteNode == nullptr){
         std::cout << "Current node is a nullptr" << std::endl;
         //throw std::logic_error("No node exists with the specified value!");
@@ -54,7 +55,7 @@ void BST::deleteNode(int value){
         delete deleteNode;
     }
     else if (deleteNode == root && deleteNode->left != nullptr && deleteNode->right != nullptr){
-        Node* successor = findSuccessor(deleteNode->right);
+        Node* successor = HelperFunctions::findSuccessor(deleteNode->right);
                 
     }
             //Case 1: deleteNode has no children 
@@ -82,15 +83,15 @@ void BST::deleteNode(int value){
 }
 
 void BST::inOrderTraversal(){
-    inOrderTraversalHelper(root);
+    HelperFunctions::inOrderTraversalHelper(root);
     std::cout << std::endl;
 }
 
 void BST::search(int value){
-    searchHelper(root, value);
+    HelperFunctions::searchHelper(root, value);
 }
 
 BST::~BST(){
-    deleteBST(root);
+    HelperFunctions::deleteBST(root);
     std::cout << "Deconstructor called successfully!" << std::endl;
 }

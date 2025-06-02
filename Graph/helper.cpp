@@ -39,7 +39,7 @@ void HelperFunctions::deleteBST(BST::Node* root){
     }
 }
 
-void searchHelper(BST::Node* root, int value){
+void HelperFunctions::searchHelper(BST::Node* root, int value){
 
     if (root->value == value){
         std::cout << "Value has been found" << std::endl;

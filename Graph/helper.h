@@ -1,10 +1,11 @@
 #ifndef HELPER_H
 #define HELPER_H
+#include <iostream>
 #include "BST.h"
 
 class HelperFunctions{
 
-    protected:
+    public:
 
         static void addNodeHelper(BST::Node* currentNode, BST::Node* addNode);
         static void inOrderTraversalHelper(BST::Node* currentNode);
