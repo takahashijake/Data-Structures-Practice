@@ -9,6 +9,7 @@ class HelperFunctions{
 
         static void addNodeHelper(BST::Node* currentNode, BST::Node* addNode);
         static void inOrderTraversalHelper(BST::Node* currentNode);
+        static void ReverseOrderTraversalHelper(BST::Node* currentNode);
         static void deleteBST(BST::Node* currentNode);
         static void searchHelper(BST::Node* root, int value);
         static BST::Node* deleteNodeSearch(BST::Node* current, int value);

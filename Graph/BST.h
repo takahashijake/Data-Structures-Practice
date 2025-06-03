@@ -24,6 +24,7 @@ class BST{
         void deleteNode(Node* deleteNode);
         void deleteValue(int value);
         void inOrderTraversal();
+        void ReverseOrderTraversal();
         void search(int value);
        ~BST();
         

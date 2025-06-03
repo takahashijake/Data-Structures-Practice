@@ -30,6 +30,8 @@ void HelperFunctions::inOrderTraversalHelper(BST::Node* currentNode){
     }
 }
 
+
+
 void HelperFunctions::deleteBST(BST::Node* root){
 
     if (root != nullptr){
@@ -90,7 +92,6 @@ BST::Node* HelperFunctions::deleteNodeSearch(BST::Node* current, int value){
 }
 
 BST::Node* HelperFunctions::findSuccessor(BST::Node* rightDeleteNode){
-
     if (rightDeleteNode->left == nullptr){
         return rightDeleteNode;
     }
@@ -104,4 +105,12 @@ void HelperFunctions::swapNodes(BST::Node* firstNode, BST::Node* secondNode){
     int tempValue = firstNode->value;
     firstNode->value = secondNode->value;
     secondNode->value = tempValue;
+}
+
+void HelperFunctions::ReverseOrderTraversalHelper(BST::Node* currentNode){
+    if (currentNode != nullptr){
+        HelperFunctions::ReverseOrderTraversalHelper(currentNode->right);
+        std::cout << currentNode->value << " ";
+        HelperFunctions::ReverseOrderTraversalHelper(currentNode->left);
+    }
 }

@@ -11,9 +11,9 @@ tree.addNode(12);
 tree.addNode(17);
 tree.addNode(16);
 tree.addNode(18);
-tree.inOrderTraversal();
+tree.ReverseOrderTraversal();
 tree.deleteValue(15);
-tree.inOrderTraversal();
+tree.ReverseOrderTraversal();
 
     return 0;
 }

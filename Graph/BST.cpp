@@ -182,6 +182,12 @@ void BST::search(int value){
     HelperFunctions::searchHelper(root, value);
 }
 
+void BST::ReverseOrderTraversal(){
+
+    HelperFunctions::ReverseOrderTraversalHelper(root);
+    std::cout << std::endl;
+}
+
 BST::~BST(){
     HelperFunctions::deleteBST(root);
     std::cout << "Deconstructor called successfully!" << std::endl;
