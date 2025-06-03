@@ -97,3 +97,8 @@ BST::Node* HelperFunctions::findSuccessor(BST::Node* rightDeleteNode){
     return rightDeleteNode->left;
 }
 
+void HelperFunctions::swapNodes(BST::Node* firstNode, BST::Node* secondNode){
+    int tempValue = firstNode->value;
+    firstNode->value = secondNode->value;
+    secondNode->value = tempValue;
+}

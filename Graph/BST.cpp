@@ -44,19 +44,48 @@ void BST::deleteNode(int value){
         std::cout << "Current node is a nullptr" << std::endl;
         //throw std::logic_error("No node exists with the specified value!");
     }
-        //Case 0?: deleteNode is the root
+    //Case 0: The node to delete is the root 
+
+    //The node is the root and both children are nul
     else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right == nullptr){
         root = nullptr;
         delete deleteNode;
     }
+    //The node is the root and only the right children is not null
     else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right != nullptr){
         deleteNode->right->parent = nullptr;
         root = deleteNode->right;
         delete deleteNode;
     }
+    //The node to delete is the root and both of the children are not null;
     else if (deleteNode == root && deleteNode->left != nullptr && deleteNode->right != nullptr){
         Node* successor = HelperFunctions::findSuccessor(deleteNode->right);
-                
+        std::cout << "Value of successor is: " << successor->value << std::endl;
+        HelperFunctions::swapNodes(deleteNode, successor);
+        if (successor->left == nullptr && successor->right == nullptr){
+            if (successor->parent->left == successor){
+                Node* temp = successor->parent;
+                delete successor;
+                successor->parent->left = nullptr;
+            }
+            else if (successor->parent->right == successor){
+                Node* temp = successor->parent;
+                delete successor;
+                successor->parent->right = nullptr;
+            }
+        }
+        else if (successor->left == nullptr && successor->right != nullptr){
+            if (successor->parent->left == successor){
+                successor->parent->left = successor->right;
+                successor->right->parent = successor->parent;
+                delete successor; 
+            }
+            else if (successor->parent->right == successor){
+                successor->parent->right = successor->right;
+                successor->right->parent = successor->right;
+                delete successor;
+            }
+        }
     }
             //Case 1: deleteNode has no children 
     else if (deleteNode->left == nullptr && deleteNode->right == nullptr && value > deleteNode->parent->value){
