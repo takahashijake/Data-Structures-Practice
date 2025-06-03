@@ -60,6 +60,7 @@ void BST::deleteNode(int value){
     //The node to delete is the root and both of the children are not null;
     else if (deleteNode == root && deleteNode->left != nullptr && deleteNode->right != nullptr){
         Node* successor = HelperFunctions::findSuccessor(deleteNode->right);
+
         std::cout << "Value of successor is: " << successor->value << std::endl;
         HelperFunctions::swapNodes(deleteNode, successor);
         if (successor->left == nullptr && successor->right == nullptr){
@@ -83,6 +84,18 @@ void BST::deleteNode(int value){
             else if (successor->parent->right == successor){
                 successor->parent->right = successor->right;
                 successor->right->parent = successor->right;
+                delete successor;
+            }
+        }
+        else if (successor->left != nullptr && successor->right == nullptr){
+            if (successor->parent->left == successor){
+                successor->parent->left = successor->left;
+                successor->left->parent = successor->parent;
+                delete successor;
+            }
+            else if (successor->parent->right == successor){
+                successor->parent->right = successor->left;
+                successor->left->parent = successor->parent;
                 delete successor;
             }
         }

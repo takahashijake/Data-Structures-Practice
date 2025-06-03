@@ -91,10 +91,13 @@ BST::Node* HelperFunctions::deleteNodeSearch(BST::Node* current, int value){
 
 BST::Node* HelperFunctions::findSuccessor(BST::Node* rightDeleteNode){
 
-    while (rightDeleteNode->left != nullptr){
-        findSuccessor(rightDeleteNode->left);
+    if (rightDeleteNode->left == nullptr){
+        return rightDeleteNode;
     }
-    return rightDeleteNode->left;
+    else{
+        HelperFunctions::findSuccessor(rightDeleteNode->left);
+    }
+    return nullptr;
 }
 
 void HelperFunctions::swapNodes(BST::Node* firstNode, BST::Node* secondNode){
