@@ -38,8 +38,7 @@ void BST::addNode(int value){
     }
 }
 
-void BST::deleteNode(int value){
-    Node* deleteNode = HelperFunctions::deleteNodeSearch(root, value);
+void BST::deleteNode(Node* deleteNode){
     if (deleteNode == nullptr){
         std::cout << "Current node is a nullptr" << std::endl;
         //throw std::logic_error("No node exists with the specified value!");
@@ -67,7 +66,8 @@ void BST::deleteNode(int value){
         Node* successor = HelperFunctions::findSuccessor(deleteNode->right);
         std::cout << "Value of successor is: " << successor->value << std::endl;
         HelperFunctions::swapNodes(deleteNode, successor);
-        if (successor->parent == deleteNode){
+        BST::deleteNode(successor);
+        /*if (successor->parent == deleteNode){
             if (deleteNode->left == successor){
                 if (successor->left == nullptr && successor->right == nullptr){
                     delete successor;
@@ -128,28 +128,48 @@ void BST::deleteNode(int value){
             }
         }
     }
-            //Case 1: deleteNode has no children 
-    else if (deleteNode->left == nullptr && deleteNode->right == nullptr && value > deleteNode->parent->value){
+        */
+    }
+     //Case 1: deleteNode has no children 
+    else if (deleteNode->left == nullptr && deleteNode->right == nullptr && deleteNode->parent->right == deleteNode){
         deleteNode->parent->right = nullptr;
         delete deleteNode;
     }
-    else if (deleteNode->left == nullptr && deleteNode->right == nullptr && value <= deleteNode->parent->value){
+    else if (deleteNode->left == nullptr && deleteNode->right == nullptr && deleteNode->parent->left == deleteNode){
         deleteNode->parent->left = nullptr;
         delete deleteNode;
     }
             //Case 2: deleteNode has 1 child
-    else if (deleteNode->left == nullptr && deleteNode->right != nullptr && value > deleteNode->parent->value){
+    else if (deleteNode->left == nullptr && deleteNode->right != nullptr && deleteNode->parent->right == deleteNode){
         deleteNode->parent->right = deleteNode->right;
         deleteNode->right->parent = deleteNode->parent;
         delete deleteNode;
     }
-    else if (deleteNode->left != nullptr && deleteNode->right == nullptr && value > deleteNode->parent->value){
+    else if (deleteNode->left != nullptr && deleteNode->right == nullptr && deleteNode->parent->right == deleteNode){
         deleteNode->parent->right = deleteNode->left;
         deleteNode->left->parent = deleteNode->parent;
+        delete deleteNode;
     }
-    else if (deleteNode->left == nullptr && deleteNode->right != nullptr && value <= deleteNode->parent->value){
+    else if (deleteNode->left == nullptr && deleteNode->right != nullptr && deleteNode->parent->left == deleteNode){
+        deleteNode->parent->left = deleteNode->right;
+        deleteNode->right->parent = deleteNode->parent;
+        delete deleteNode;
+    }
+    else if (deleteNode->left != nullptr && deleteNode->right == nullptr && deleteNode->parent->left == deleteNode){
+        deleteNode->parent->left = deleteNode->left;
+        deleteNode->left->parent = deleteNode->parent;
+        delete deleteNode;
+    }
+    //Case 2: deleteNode has 2 children
+    else if (deleteNode->left != nullptr && deleteNode->right != nullptr){
+        Node* successor = HelperFunctions::findSuccessor(deleteNode->right);
+        BST::deleteNode(successor);
+    }
+}
 
-    }
+void BST::deleteValue(int value){
+    Node* deleteNode = HelperFunctions::deleteNodeSearch(root, value);
+    BST::deleteNode(deleteNode);
 }
 
 void BST::inOrderTraversal(){

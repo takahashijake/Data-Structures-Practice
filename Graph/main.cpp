@@ -3,17 +3,17 @@
 int main(){
 
 
-    BST BinaryTree;
-    BinaryTree.addNode(4);
-    BinaryTree.addNode(2);
-    BinaryTree.addNode(1);
-    BinaryTree.addNode(5);
-    BinaryTree.addNode(6);
-    BinaryTree.inOrderTraversal();
-    BinaryTree.deleteNode(4);
-    BinaryTree.deleteNode(5);
-    BinaryTree.deleteNode(6);
-    BinaryTree.inOrderTraversal();
+    BST tree;
+tree.addNode(10);
+tree.addNode(5);
+tree.addNode(15);
+tree.addNode(12);
+tree.addNode(17);
+tree.addNode(16);
+tree.addNode(18);
+tree.deleteValue(15);  // Should replace 15 with 16
+tree.inOrderTraversal();
+    tree.inOrderTraversal();
 
     return 0;
 }
