@@ -12,5 +12,8 @@ int main(){
     BinaryTree.inOrderTraversal();
     BinaryTree.deleteNode(4);
     BinaryTree.deleteNode(5);
+    BinaryTree.deleteNode(6);
     BinaryTree.inOrderTraversal();
+
+    return 0;
 }

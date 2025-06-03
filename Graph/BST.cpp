@@ -46,7 +46,7 @@ void BST::deleteNode(int value){
     }
     //Case 0: The node to delete is the root 
 
-    //The node is the root and both children are nul
+    //The node is the root and both children are null
     else if (deleteNode == root && deleteNode->left == nullptr && deleteNode->right == nullptr){
         root = nullptr;
         delete deleteNode;
@@ -57,12 +57,40 @@ void BST::deleteNode(int value){
         root = deleteNode->right;
         delete deleteNode;
     }
+    else if (deleteNode == root && deleteNode->left != nullptr && deleteNode->right == nullptr){
+        deleteNode->left->parent = nullptr;
+        root = deleteNode->left;
+        delete deleteNode;
+    }
     //The node to delete is the root and both of the children are not null;
     else if (deleteNode == root && deleteNode->left != nullptr && deleteNode->right != nullptr){
         Node* successor = HelperFunctions::findSuccessor(deleteNode->right);
-
         std::cout << "Value of successor is: " << successor->value << std::endl;
         HelperFunctions::swapNodes(deleteNode, successor);
+        if (successor->parent == deleteNode){
+            if (deleteNode->left == successor){
+                if (successor->left == nullptr && successor->right == nullptr){
+                    delete successor;
+                    deleteNode->left = nullptr;
+                }
+                else if (successor->left == nullptr && successor->right != nullptr){
+                    successor->parent->left = successor->right;
+                    successor->right->parent = successor->parent;
+                    delete successor; 
+                }
+            }
+            else if (deleteNode->right == successor){
+                if (successor->left == nullptr && successor->right == nullptr){
+                    delete successor;
+                    deleteNode->right = nullptr;
+                }
+                else if (successor->left == nullptr && successor->right != nullptr){
+                    successor->parent->right = successor->right;
+                    successor->right->parent = successor->parent;
+                    delete successor; 
+                }
+            }
+        }
         if (successor->left == nullptr && successor->right == nullptr){
             if (successor->parent->left == successor){
                 Node* temp = successor->parent;
