@@ -163,6 +163,7 @@ void BST::deleteNode(Node* deleteNode){
     //Case 2: deleteNode has 2 children
     else if (deleteNode->left != nullptr && deleteNode->right != nullptr){
         Node* successor = HelperFunctions::findSuccessor(deleteNode->right);
+        HelperFunctions::swapNodes(deleteNode, successor);
         BST::deleteNode(successor);
     }
 }

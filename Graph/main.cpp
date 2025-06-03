@@ -11,9 +11,9 @@ tree.addNode(12);
 tree.addNode(17);
 tree.addNode(16);
 tree.addNode(18);
-tree.deleteValue(15);  // Should replace 15 with 16
 tree.inOrderTraversal();
-    tree.inOrderTraversal();
+tree.deleteValue(15);
+tree.inOrderTraversal();
 
     return 0;
 }
