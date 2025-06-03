@@ -16,7 +16,7 @@ class LinkedList{
     public:
         LinkedList();
         void addNode(int value);
-
+        void printList();
 
 };
 

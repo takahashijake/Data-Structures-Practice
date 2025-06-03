@@ -1,10 +1,11 @@
 #include "HelperFunctions.h"
+#include <iostream>
 
 void HelperFunctions::addNodeHelper(LinkedList::Node* addNode, LinkedList::Node* currentNode){
-    if (currentNode->next == nullptr){
-        currentNode->next = addNode;
+    if (currentNode == nullptr){
+        currentNode = addNode;
     }
     else{
-        HelperFunctions::addNodeHelper(addNode, currentNode->next);
+        addNodeHelper(addNode, currentNode->next);
     }
 }
