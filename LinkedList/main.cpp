@@ -9,9 +9,12 @@ int main(){
     LL.addNode(3);
     LL.addNode(4);
     LL.printList();
+    LL.deleteNode(2);
+    LL.deleteNode(3);
     LL.reverseList();
     LL.printList();
     LL.searchHelper(3);
+    LL.printList();
     LL.getSize();
 
     return 0;

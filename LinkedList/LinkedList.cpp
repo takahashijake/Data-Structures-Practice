@@ -64,6 +64,9 @@ LinkedList::Node* LinkedList::searchHelper(int value){
     Node* current = root;
     while (current->value != value){
         current = current->next;
+        if (current == nullptr){
+           throw std::logic_error("The value does not exist in the Linked List!");
+        }
     }
     std::cout << "Value of found Node is: " << current->value << std::endl;
     return current;
@@ -71,6 +74,17 @@ LinkedList::Node* LinkedList::searchHelper(int value){
 }
 
 void LinkedList::deleteNode(int value){
-
-
+    Node* deleteNode = LinkedList::searchHelper(value);
+    if (deleteNode == root){
+        Node* temp = deleteNode;
+        deleteNode->next->parent = nullptr;
+        root = deleteNode->next;
+        delete deleteNode;
+    }
+    else{
+        Node* temp = deleteNode;
+        deleteNode->parent->next = deleteNode->next;
+        deleteNode->next->parent = deleteNode->parent;
+        delete temp;
+    }
 }
