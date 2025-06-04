@@ -59,3 +59,18 @@ void LinkedList::reverseList(){
     }
     root = newRoot;
 }
+
+LinkedList::Node* LinkedList::searchHelper(int value){
+    Node* current = root;
+    while (current->value != value){
+        current = current->next;
+    }
+    std::cout << "Value of found Node is: " << current->value << std::endl;
+    return current;
+    
+}
+
+void LinkedList::deleteNode(int value){
+
+
+}

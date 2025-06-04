@@ -11,6 +11,7 @@ int main(){
     LL.printList();
     LL.reverseList();
     LL.printList();
+    LL.searchHelper(3);
     LL.getSize();
 
     return 0;

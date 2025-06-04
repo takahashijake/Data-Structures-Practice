@@ -20,6 +20,8 @@ class LinkedList{
         void printList();
         void getSize();
         void reverseList();
+        Node* searchHelper(int value);
+        void deleteNode(int value);
 
 };
 
