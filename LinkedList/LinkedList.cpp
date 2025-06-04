@@ -14,11 +14,19 @@ void LinkedList::addNode(int value){
         root = newNode;
     }
     else{
-        HelperFunctions::addNodeHelper(newNode, root->next);
+        Node* current = root;
+        while (current->next != nullptr){
+            current = current->next;
+        }
+        current->next = newNode;
     }
 }
 
 void LinkedList::printList(){
+    if (root == nullptr){
+        std::cout << "Cannot print an empty list!" << std::endl;
+        return;
+    }
     Node* current = root; 
     while (current != nullptr){
         std::cout << current->value << " ";
