@@ -1,5 +1,4 @@
 #include "LinkedList.h"
-#include "HelperFunctions.h"
 #include <iostream>
 
 LinkedList::LinkedList(){
@@ -33,4 +32,14 @@ void LinkedList::printList(){
         current = current->next;
     }
     std::cout << std::endl;
+}
+
+void LinkedList::getSize(){
+    int count = 0;
+    Node* current = root;
+    while (current != nullptr){
+        count++;
+        current = current->next;
+    }       
+    std::cout << "The linked list is " << count << " elements long!" << std::endl;
 }

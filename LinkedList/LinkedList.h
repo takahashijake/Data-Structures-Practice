@@ -17,6 +17,7 @@ class LinkedList{
         LinkedList();
         void addNode(int value);
         void printList();
+        void getSize();
 
 };
 
