@@ -9,8 +9,7 @@ int main(){
     LL.addNode(3);
     LL.addNode(4);
     LL.printList();
-    LL.deleteNode(2);
-    LL.deleteNode(3);
+    LL.deleteNode(4);
     LL.reverseList();
     LL.printList();
     LL.searchHelper(3);

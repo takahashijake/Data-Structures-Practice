@@ -81,6 +81,11 @@ void LinkedList::deleteNode(int value){
         root = deleteNode->next;
         delete deleteNode;
     }
+    else if (deleteNode->next == nullptr){
+        Node* temp = deleteNode;
+        deleteNode->parent->next = nullptr;
+        delete deleteNode;
+    }
     else{
         Node* temp = deleteNode;
         deleteNode->parent->next = deleteNode->next;
