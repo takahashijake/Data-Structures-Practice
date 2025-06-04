@@ -9,6 +9,7 @@ void LinkedList::addNode(int value){
     Node* newNode = new Node;
     newNode->value = value;
     newNode->next = nullptr;
+    newNode->parent = nullptr;
     if (root == nullptr){
         root = newNode;
     }
@@ -18,6 +19,7 @@ void LinkedList::addNode(int value){
             current = current->next;
         }
         current->next = newNode;
+        newNode->parent = current;
     }
 }
 
@@ -42,4 +44,20 @@ void LinkedList::getSize(){
         current = current->next;
     }       
     std::cout << "The linked list is " << count << " elements long!" << std::endl;
+}
+
+void LinkedList::reverseList(){
+    Node* current = root;
+    Node* prev_node = nullptr;
+
+    while (current != nullptr){
+        Node* next_original = current->next;
+        current->next = prev_node;
+        current->parent = next_original;
+
+        prev_node = current;
+        current = next_original;
+    }
+
+    root = prev_node;
 }

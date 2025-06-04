@@ -7,7 +7,9 @@ int main(){
     LL.addNode(1);
     LL.addNode(2);
     LL.addNode(3);
-    LL.addNode(2);
+    LL.addNode(4);
+    LL.printList();
+    LL.reverseList();
     LL.printList();
     LL.getSize();
 

@@ -8,6 +8,7 @@ class LinkedList{
         struct Node{
             int value;
             Node* next; 
+            Node* parent;
         };
 
     private:
@@ -18,6 +19,7 @@ class LinkedList{
         void addNode(int value);
         void printList();
         void getSize();
+        void reverseList();
 
 };
 
