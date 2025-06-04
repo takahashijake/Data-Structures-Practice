@@ -48,16 +48,14 @@ void LinkedList::getSize(){
 
 void LinkedList::reverseList(){
     Node* current = root;
-    Node* prev_node = nullptr;
-
+    Node* newRoot = nullptr;
     while (current != nullptr){
-        Node* next_original = current->next;
-        current->next = prev_node;
-        current->parent = next_original;
-
-        prev_node = current;
-        current = next_original;
+        Node* next = current->next;
+        Node* parent= current->parent;
+        current->next = parent;
+        current->parent = next;
+        newRoot = current;
+        current = next;
     }
-
-    root = prev_node;
+    root = newRoot;
 }
