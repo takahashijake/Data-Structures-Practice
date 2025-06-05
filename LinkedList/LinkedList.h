@@ -24,6 +24,8 @@ class LinkedList{
         Node* searchHelper(int value);
         void search(int value);
         void deleteNode(int value);
+        void deleteBeginning();
+        void deleteEnd();
         ~LinkedList();
 
 };

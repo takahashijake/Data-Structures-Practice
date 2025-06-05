@@ -116,3 +116,27 @@ LinkedList::~LinkedList(){
     }
     std::cout << "Destructor called successfully!" << std::endl;
 }
+
+void LinkedList::deleteBeginning(){
+    if (root == nullptr){
+        throw std::logic_error("Cannot delete from an empty list!");
+    }
+    root->next->parent = nullptr;
+    Node* temp = root->next;
+    delete root;
+    root = temp;
+}
+
+void LinkedList::deleteEnd(){
+    if (root == nullptr){
+        throw std::logic_error("Cannot delete from an empty list!");
+    }
+    Node* current = root;
+    while (current->next != nullptr){
+        current = current->next;
+    }
+    std::cout << "Value of last node is: " << current->value << std::endl;
+    current->parent->next = nullptr;
+    delete current;
+
+}
