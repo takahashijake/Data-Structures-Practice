@@ -11,6 +11,7 @@ int main(){
       LL.printList();
       LL.deleteEnd();
       LL.deleteEnd();
+      LL.search(5);
     LL.printList();
     
 

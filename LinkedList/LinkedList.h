@@ -19,7 +19,7 @@ class LinkedList{
         void Append(int value);
         void Prepend(int value);
         void printList();
-        void getSize();
+        int getSize();
         void reverseList();
         Node* searchHelper(int value);
         void search(int value);

@@ -13,7 +13,7 @@ void LinkedList::Append(int value){
     if (root == nullptr){
         root = newNode;
     }
-    else{
+    else{ 
         Node* current = root;
         while (current->next != nullptr){
             current = current->next;
@@ -28,10 +28,14 @@ void LinkedList::Prepend(int value){
     newNode->value = value;
     newNode->next = nullptr;
     newNode->parent = nullptr;
-
-    newNode->next = root;
-    root = newNode;
-    newNode->next->parent = newNode;
+    if (root == nullptr){
+        root = newNode;
+    }
+    else{
+        newNode->next = root;
+        root = newNode;
+        newNode->next->parent = newNode;
+    }
     
 }
 
@@ -48,7 +52,7 @@ void LinkedList::printList(){
     std::cout << std::endl;
 }
 
-void LinkedList::getSize(){
+int LinkedList::getSize(){
     int count = 0;
     Node* current = root;
     while (current != nullptr){
@@ -56,9 +60,14 @@ void LinkedList::getSize(){
         current = current->next;
     }       
     std::cout << "The linked list is " << count << " elements long!" << std::endl;
+
+    return count;
 }
 
 void LinkedList::reverseList(){
+    if (root == nullptr){
+        throw std::logic_error("Cannot reverse an empty list!");
+    }
     Node* current = root;
     Node* newRoot = nullptr;
     while (current != nullptr){
@@ -74,12 +83,18 @@ void LinkedList::reverseList(){
 
 LinkedList::Node* LinkedList::searchHelper(int value){
     Node* current = root;
-    while (current->value != value){
+    while (current != nullptr){
+        if (current->value == value){
+            return current;
+        }
+    }
+    return nullptr;
+    /*while (current->value != value){
         current = current->next;
         if (current == nullptr){
            throw std::logic_error("The value does not exist in the Linked List!");
         }
-    }
+    }*/
     std::cout << "Value of found Node is: " << current->value << std::endl;
     return current;
 }
@@ -90,10 +105,17 @@ void LinkedList::search(int value){
 
 void LinkedList::deleteNode(int value){
     Node* deleteNode = LinkedList::searchHelper(value);
+    if (deleteNode == nullptr){
+        std::cout << "The value does not exist!" << std::endl;
+    }
     if (deleteNode == root){
         deleteNode->next->parent = nullptr;
         root = deleteNode->next;
         delete deleteNode;
+    }
+    else if (deleteNode == root && deleteNode->next == nullptr){
+        delete deleteNode;
+        root = nullptr;
     }
     else if (deleteNode->next == nullptr){
         deleteNode->parent->next = nullptr;
@@ -121,22 +143,33 @@ void LinkedList::deleteBeginning(){
     if (root == nullptr){
         throw std::logic_error("Cannot delete from an empty list!");
     }
-    root->next->parent = nullptr;
-    Node* temp = root->next;
-    delete root;
-    root = temp;
+    else if (root != nullptr && root->next == nullptr){
+        delete root;
+        root = nullptr;
+    }
+    else{
+        root->next->parent = nullptr;
+        Node* temp = root->next;
+        delete root;
+        root = temp;
+    }
 }
 
 void LinkedList::deleteEnd(){
     if (root == nullptr){
         throw std::logic_error("Cannot delete from an empty list!");
     }
-    Node* current = root;
-    while (current->next != nullptr){
-        current = current->next;
+    else if (root != nullptr && root->next == nullptr){
+        delete root;
+        root = nullptr;
     }
-    std::cout << "Value of last node is: " << current->value << std::endl;
-    current->parent->next = nullptr;
-    delete current;
-
+    else{
+        Node* current = root;
+        while (current->next != nullptr){
+            current = current->next;
+        }
+        std::cout << "Value of last node is: " << current->value << std::endl;
+        current->parent->next = nullptr;
+        delete current;
+    }
 }
