@@ -106,3 +106,13 @@ void LinkedList::deleteNode(int value){
         delete temp;
     }
 }
+
+LinkedList::~LinkedList(){
+    Node* current = root;
+    while (current != nullptr){
+        Node* temp = current->next;
+        delete current;
+        current = temp;
+    }
+    std::cout << "Destructor called successfully!" << std::endl;
+}
