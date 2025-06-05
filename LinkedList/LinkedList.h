@@ -16,11 +16,13 @@ class LinkedList{
 
     public:
         LinkedList();
-        void addNode(int value);
+        void Append(int value);
+        void Prepend(int value);
         void printList();
         void getSize();
         void reverseList();
         Node* searchHelper(int value);
+        void search(int value);
         void deleteNode(int value);
 
 };

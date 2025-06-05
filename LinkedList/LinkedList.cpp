@@ -5,7 +5,7 @@ LinkedList::LinkedList(){
     root = nullptr;
 }
 
-void LinkedList::addNode(int value){
+void LinkedList::Append(int value){
     Node* newNode = new Node;
     newNode->value = value;
     newNode->next = nullptr;
@@ -21,6 +21,18 @@ void LinkedList::addNode(int value){
         current->next = newNode;
         newNode->parent = current;
     }
+}
+
+void LinkedList::Prepend(int value){
+    Node* newNode = new Node;
+    newNode->value = value;
+    newNode->next = nullptr;
+    newNode->parent = nullptr;
+
+    newNode->next = root;
+    root = newNode;
+    newNode->next->parent = newNode;
+    
 }
 
 void LinkedList::printList(){
@@ -70,19 +82,20 @@ LinkedList::Node* LinkedList::searchHelper(int value){
     }
     std::cout << "Value of found Node is: " << current->value << std::endl;
     return current;
-    
+}
+
+void LinkedList::search(int value){
+    LinkedList::searchHelper(value);
 }
 
 void LinkedList::deleteNode(int value){
     Node* deleteNode = LinkedList::searchHelper(value);
     if (deleteNode == root){
-        Node* temp = deleteNode;
         deleteNode->next->parent = nullptr;
         root = deleteNode->next;
         delete deleteNode;
     }
     else if (deleteNode->next == nullptr){
-        Node* temp = deleteNode;
         deleteNode->parent->next = nullptr;
         delete deleteNode;
     }

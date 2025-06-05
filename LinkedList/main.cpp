@@ -4,17 +4,15 @@
 int main(){
 
     LinkedList LL;
-    LL.addNode(1);
-    LL.addNode(2);
-    LL.addNode(3);
-    LL.addNode(4);
+    LL.Append(1);
+    LL.Append(2);
+    LL.Append(3);
+    LL.Prepend(4);
+    LL.Prepend(3);
+    LL.deleteNode(1);
+    LL.deleteNode(2);
     LL.printList();
-    LL.deleteNode(4);
-    LL.reverseList();
-    LL.printList();
-    LL.searchHelper(3);
-    LL.printList();
-    LL.getSize();
+    
 
     return 0;
 }
