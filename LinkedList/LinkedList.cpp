@@ -1,11 +1,13 @@
 #include "LinkedList.h"
 #include <iostream>
 
-LinkedList::LinkedList(){
+template <typename T>
+LinkedList<T>::LinkedList(){
     root = nullptr;
 }
 
-void LinkedList::Append(int value){
+template <typename T>
+void LinkedList<T>::Append(T value){
     Node* newNode = new Node;
     newNode->value = value;
     newNode->next = nullptr;
@@ -23,7 +25,8 @@ void LinkedList::Append(int value){
     }
 }
 
-void LinkedList::Prepend(int value){
+template <typename T>
+void LinkedList<T>::Prepend(T value){
     Node* newNode = new Node;
     newNode->value = value;
     newNode->next = nullptr;
@@ -39,7 +42,8 @@ void LinkedList::Prepend(int value){
     
 }
 
-void LinkedList::printList(){
+template <typename T>
+void LinkedList<T>::printList(){
     if (root == nullptr){
         std::cout << "Cannot print an empty list!" << std::endl;
         return;
@@ -52,7 +56,8 @@ void LinkedList::printList(){
     std::cout << std::endl;
 }
 
-int LinkedList::getSize(){
+template <typename T>
+int LinkedList<T>::getSize(){
     int count = 0;
     Node* current = root;
     while (current != nullptr){
@@ -64,7 +69,8 @@ int LinkedList::getSize(){
     return count;
 }
 
-void LinkedList::reverseList(){
+template <typename T>
+void LinkedList<T>::reverseList(){
     if (root == nullptr){
         throw std::logic_error("Cannot reverse an empty list!");
     }
@@ -81,7 +87,8 @@ void LinkedList::reverseList(){
     root = newRoot;
 }
 
-LinkedList::Node* LinkedList::searchHelper(int value){
+template <typename T>
+typename LinkedList<T>::Node* LinkedList<T>::searchHelper(T value){
     Node* current = root;
     while (current != nullptr){
         if (current->value == value){
@@ -99,11 +106,13 @@ LinkedList::Node* LinkedList::searchHelper(int value){
     return current;
 }
 
-void LinkedList::search(int value){
+template <typename T>
+void LinkedList<T>::search(T value){
     LinkedList::searchHelper(value);
 }
 
-void LinkedList::deleteNode(int value){
+template <typename T>
+void LinkedList<T>::deleteNode(T value){
     Node* deleteNode = LinkedList::searchHelper(value);
     if (deleteNode == nullptr){
         std::cout << "The value does not exist!" << std::endl;
@@ -129,7 +138,8 @@ void LinkedList::deleteNode(int value){
     }
 }
 
-LinkedList::~LinkedList(){
+template <typename T>
+LinkedList<T>::~LinkedList(){
     Node* current = root;
     while (current != nullptr){
         Node* temp = current->next;
@@ -139,7 +149,8 @@ LinkedList::~LinkedList(){
     std::cout << "Destructor called successfully!" << std::endl;
 }
 
-void LinkedList::deleteBeginning(){
+template <typename T>
+void LinkedList<T>::deleteBeginning(){
     if (root == nullptr){
         throw std::logic_error("Cannot delete from an empty list!");
     }
@@ -155,7 +166,8 @@ void LinkedList::deleteBeginning(){
     }
 }
 
-void LinkedList::deleteEnd(){
+template <typename T>
+void LinkedList<T>::deleteEnd(){
     if (root == nullptr){
         throw std::logic_error("Cannot delete from an empty list!");
     }

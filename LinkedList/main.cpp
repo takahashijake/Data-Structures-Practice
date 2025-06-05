@@ -3,15 +3,14 @@
 
 int main(){
 
-    LinkedList LL;
+    LinkedList<int> LL;
     LL.Append(1);
     LL.Append(2);
     LL.Append(3);
     LL.Append(4);
-      LL.printList();
-      LL.deleteEnd();
-      LL.deleteEnd();
-      LL.search(5);
+    LL.reverseList();
+    LL.reverseList();
+    LL.reverseList();
     LL.printList();
     
 

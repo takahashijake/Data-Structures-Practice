@@ -1,12 +1,13 @@
 #ifndef LinkedList_H
 #define LinkedList_H
 
+template <typename T>
 class LinkedList{
 
     public:
 
         struct Node{
-            int value;
+            T value;
             Node* next; 
             Node* parent;
         };
@@ -15,15 +16,16 @@ class LinkedList{
         Node* root;
 
     public:
+
         LinkedList();
-        void Append(int value);
-        void Prepend(int value);
+        void Append(T value);
+        void Prepend(T value);
         void printList();
         int getSize();
         void reverseList();
-        Node* searchHelper(int value);
-        void search(int value);
-        void deleteNode(int value);
+        Node* searchHelper(T value);
+        void search(T value);
+        void deleteNode(T value);
         void deleteBeginning();
         void deleteEnd();
         ~LinkedList();
