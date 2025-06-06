@@ -52,7 +52,7 @@ class ArrayList{
 
         void inflate(){
             capacity = capacity * 2;
-            int* temp = new int[capacity];
+            T* temp = new T[capacity];
             for (int i = 0; i < count; i++){
                 temp[i] = arr[i];
             }
@@ -62,6 +62,9 @@ class ArrayList{
         }
 
         void insertAtIndex(int index, T value){
+            if (index > capacity){
+                throw std::logic_error("Given index is greater than capacity!");
+            }
             if (count + 1 == capacity){
                 inflate();
             }
@@ -73,12 +76,16 @@ class ArrayList{
         }
 
         void deleteAtIndex(int index){
+            if (index > capacity){
+                throw std::logic_error("Given index is greater than capacity!");
+            }
             if (count + 1 == capacity){
                 inflate();
             }
             for (int i = index; i < count; i++){
                 arr[i] = arr[i + 1];
             }
+            count--;
         }
 
         void print(){
@@ -86,6 +93,15 @@ class ArrayList{
                 std::cout << arr[i] << " ";
             }
             std::cout << std::endl;
+        }
+
+        bool LinearSearch(T value){
+            for (int i = 0; i < count; i++){
+                if (arr[i] == value){
+                    return true;
+                }
+            }
+            return false;
         }
 
         ~ArrayList(){
