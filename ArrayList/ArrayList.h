@@ -25,6 +25,17 @@ class ArrayList{
             }
         }
 
+        void deleteBeginning(){
+            for (int i = 0; i < count; i++){
+                arr[i] = arr[i + 1];
+            }
+            count--;
+        }
+
+        void deleteEnd(){
+            count--;
+        }
+
         void prepend(T value){
             if (count + 1 == capacity){
                 inflate();
@@ -50,11 +61,36 @@ class ArrayList{
             std::cout << "Inflated successfully! " << std::endl;
         }
 
+        void insertAtIndex(int index, T value){
+            if (count + 1 == capacity){
+                inflate();
+            }
+            for (int i = count; i >= index; i--){
+                arr[i + 1] = arr[i];
+            }
+            arr[index] = value;
+            count++;
+        }
+
+        void deleteAtIndex(int index){
+            if (count + 1 == capacity){
+                inflate();
+            }
+            for (int i = index; i < count; i++){
+                arr[i] = arr[i + 1];
+            }
+        }
+
         void print(){
             for (int i = 0; i < count; i++){
                 std::cout << arr[i] << " ";
             }
             std::cout << std::endl;
+        }
+
+        ~ArrayList(){
+            delete arr;
+            std::cout << "Deconstructor called successfully!" << std::endl;
         }
 };
 
