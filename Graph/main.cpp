@@ -1,19 +1,14 @@
-#include "BST.h"
+#include "Graph.h"
 
 int main(){
 
+    UndirectedGraph<int> Graph;
 
-    BST tree;
-tree.addNode(10);
-tree.addNode(5);
-tree.addNode(15);
-tree.addNode(12);
-tree.addNode(17);
-tree.addNode(16);
-tree.addNode(18);
-tree.ReverseOrderTraversal();
-tree.deleteValue(15);
-tree.ReverseOrderTraversal();
+    Graph.addNode(3);
+    Graph.addNode(4);
+    Graph.addNode(5);
+    Graph.addEdge(4, 5);
+    Graph.adjacencyList();
 
     return 0;
 }
