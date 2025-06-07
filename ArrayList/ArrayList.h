@@ -104,6 +104,17 @@ class ArrayList{
             return false;
         }
 
+        void reverseArray(){
+            int topPointer = count - 1;
+            int lowPointer = 0;
+            while (lowPointer < topPointer){
+                std::swap(arr[lowPointer], arr[topPointer]);
+                print();
+                lowPointer++;
+                topPointer--;
+            }
+        }
+
         ~ArrayList(){
             delete arr;
             std::cout << "Deconstructor called successfully!" << std::endl;
