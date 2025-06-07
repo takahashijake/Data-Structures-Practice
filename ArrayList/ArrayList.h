@@ -116,7 +116,7 @@ class ArrayList{
         }
 
         ~ArrayList(){
-            delete arr;
+            delete[] arr;
             std::cout << "Deconstructor called successfully!" << std::endl;
         }
 };
