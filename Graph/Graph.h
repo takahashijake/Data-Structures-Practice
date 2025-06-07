@@ -96,6 +96,27 @@ class UndirectedGraph{
             }
         }
 
+        void deleteNode(T value){
+            Node* deleteNode = nodeSearchHelper(value);
+            if (deleteNode == nullptr){
+                throw std::logic_error("The node you want to delete does not exist!");
+            }
+            nodes.erase(deleteNode);
+            for (int i = 0; i < edges.size(); i++){
+                if (edges[i]->firstNode == deleteNode || edges[i]->secondNode == deleteNode){
+                    if (edgs[i]->firstNode == deleteNode){
+                        secondNode->neighbors.erase(deleteNode);
+                        edges.erase(edges[i]);
+                    }
+                    else if (edges[i]->secondNode == deleteNode){
+                        firstNode->neighbors.erase(deleteNode);
+                        edges.erase(edges[i]);
+                    }
+                }
+            }
+            delete deleteNode;
+        }
+
         void adjacencyMatrix(){
             std::cout << "  ";
             for (int i = 0; i < nodes.size(); i++){
