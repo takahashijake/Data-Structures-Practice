@@ -38,6 +38,15 @@ class UndirectedGraph{
             return false;
         }
 
+        bool isNeighbor(Node* node, Node* neighborCandidate){
+            for (int i = 0; i < node->neighbors.size(); i++){
+                if (node->neighbors[i] == neighborCandidate){
+                    return true;
+                }
+            }
+            return false;
+        }
+
     public:
         
         UndirectedGraph(){
@@ -88,7 +97,23 @@ class UndirectedGraph{
         }
 
         void adjacencyMatrix(){
-            std::cout << " "
+            std::cout << "  ";
+            for (int i = 0; i < nodes.size(); i++){
+                std::cout << nodes[i]->value << " ";
+            }
+            std::cout << std::endl;
+            for (int j = 0; j < nodes.size(); j++){
+                std::cout << nodes[j]->value << " ";
+                for (int k = 0; k < nodes.size(); k++){
+                    if (isNeighbor(nodes[j], nodes[k])){
+                        std::cout << "1 ";
+                    }
+                    else{
+                        std::cout << "0 ";
+                    }
+                }
+                std::cout << std::endl;
+            }
         }
 
         ~UndirectedGraph(){
