@@ -65,6 +65,9 @@ class ArrayList{
             if (index > capacity){
                 throw std::logic_error("Given index is greater than capacity!");
             }
+            if (index >= count){
+                throw std::logic_error("Index is out of bounds");
+            }
             if (count + 1 == capacity){
                 inflate();
             }
@@ -76,7 +79,7 @@ class ArrayList{
         }
 
         void deleteAtIndex(int index){
-            if (index > capacity){
+            if (index >= capacity){
                 throw std::logic_error("Given index is greater than capacity!");
             }
             if (count + 1 == capacity){
