@@ -5,7 +5,7 @@
 #include <iostream>
 
 template <typename T>
-class UndirectedGraph{
+class DirectedGraph{
 
     private:
         int numberOfNodes;
@@ -73,7 +73,7 @@ class UndirectedGraph{
 
     public:
         
-        UndirectedGraph(){
+        DirectedGraph(){
         
         }
 
@@ -168,7 +168,7 @@ class UndirectedGraph{
             }
         }
 
-        ~UndirectedGraph(){
+        ~DirectedGraph(){
             for (int i = 0; i < nodes.size(); i++){
                 delete nodes[i];
             }
