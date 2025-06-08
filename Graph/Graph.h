@@ -17,6 +17,7 @@ class UndirectedGraph{
         struct Edge{
             Node* firstNode;
             Node* secondNode;
+            int weight;
         };
         std::vector<Edge*> edges;
         std::vector<Node*> nodes;
@@ -82,7 +83,7 @@ class UndirectedGraph{
             nodes.push_back(newNode);
         }
 
-        void addEdge(T firstValue, T secondValue){
+        void addEdge(T firstValue, T secondValue, int weight){
             Node* firstNode = nodeSearchHelper(firstValue);
             if (firstNode == nullptr){
                 throw std::logic_error("Node does not exist!");
@@ -95,6 +96,7 @@ class UndirectedGraph{
             Edge* newEdge = new Edge;
             newEdge->firstNode = firstNode;
             newEdge->secondNode = secondNode;
+            newEdge->weight = weight;
             if (edgeExists(newEdge)){
                 throw std::logic_error("Edge already exists!");
             }
@@ -124,7 +126,6 @@ class UndirectedGraph{
             int indexNode = nodeIndex(deleteNode, nodes);
             vectorShift(nodes, indexNode);
 
-    
             std::vector<Edge*> newEdges;
             for (int i = 0; i < edges.size(); i++){
                 if (edges[i]->firstNode == deleteNode || edges[i]->secondNode == deleteNode){
@@ -134,7 +135,6 @@ class UndirectedGraph{
                     newEdges.push_back(edges[i]);
                 }
             }
-
             edges = newEdges;
 
             for (int j = 0; j < nodes.size(); j++){
