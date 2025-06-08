@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+
 template <typename T>
 class UndirectedGraph{
 
@@ -46,6 +47,28 @@ class UndirectedGraph{
             }
             return false;
         }
+
+        int nodeIndex(Node* node, std::vector<Node*> nodeVector){
+            int count = 0;
+            for (int i = 0; i < nodeVector.size(); i++){
+                if (nodeVector[i] == node){
+                    return count;
+                }
+                count++;
+            }
+            return -1;
+        }
+
+        void vectorShift(std::vector<Node*>& vector, int index){
+            if (index > vector.size()){
+                throw std::logic_error("Given index is out of bounds!");
+            }
+            for (int i = index; i < vector.size() - 1; i++){
+                vector[i] = vector[i + 1];
+            }
+            vector.pop_back();
+        }
+
 
     public:
         
@@ -94,6 +117,35 @@ class UndirectedGraph{
                 }
                 std::cout << std::endl;
             }
+        }
+
+        void deleteNode(T value){
+            Node* deleteNode = nodeSearchHelper(value);
+            int indexNode = nodeIndex(deleteNode, nodes);
+            vectorShift(nodes, indexNode);
+
+    
+            std::vector<Edge*> newEdges;
+            for (int i = 0; i < edges.size(); i++){
+                if (edges[i]->firstNode == deleteNode || edges[i]->secondNode == deleteNode){
+                    delete edges[i];
+                }
+                else{
+                    newEdges.push_back(edges[i]);
+                }
+            }
+
+            edges = newEdges;
+
+            for (int j = 0; j < nodes.size(); j++){
+                int neighborIndex = nodeIndex(deleteNode, nodes[j]->neighbors);
+                if (neighborIndex != -1){
+                    vectorShift(nodes[j]->neighbors, neighborIndex);
+                }
+            }
+            edges = newEdges;
+            delete deleteNode;
+
         }
 
         void adjacencyMatrix(){
