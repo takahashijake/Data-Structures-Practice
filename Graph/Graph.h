@@ -3,14 +3,15 @@
 
 #include <vector>
 #include <iostream>
+#include <climits>
 
 template <typename T>
-class DirectedGraph{
+class UndirectedGraph{
 
     private:
         int numberOfNodes;
         struct Node{
-            std::vector<Node*> neighbors; 
+            std::vector<Node*> neighbors;
             T value;
         };
 
@@ -70,10 +71,28 @@ class DirectedGraph{
             vector.pop_back();
         }
 
+        Edge* edgeSearch(std::vector<Edge*> edges, Node* first, Node* second){
+            for (int i = 0; i < edges.size(); i++){
+                if ((edges[i]->firstNode == first && edges[i]->secondNode == second) || (edges[i]->firstNode == second && edges[i]->secondNode == first)){
+                    return edges[i];
+                }
+            }
+            return nullptr;
+        }
+
+        bool hasSeen(std::vector<Node*> seenVector, Node* candidate){
+            for (int i = 0; i < seenVector.size(); i++){
+                if (candidate == seenvector[i]){
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
     public:
         
-        DirectedGraph(){
+        UndirectedGraph(){
         
         }
 
@@ -103,6 +122,7 @@ class DirectedGraph{
             else{
                 edges.push_back(newEdge);
                 firstNode->neighbors.push_back(secondNode);
+                secondNode->neighbors.push_back(firstNode);
             }
         }
 
@@ -168,7 +188,40 @@ class DirectedGraph{
             }
         }
 
-        ~DirectedGraph(){
+        void PrimsAlgorithm(T value){
+            Node* sourceNode = nodeSearchHelper(value);
+            if (sourceNode == nullptr){
+                throw std::logic_error("Node does not exist!");
+            }
+
+            std::vector<Edge*> MST:
+            std::vector<Node*> seen;
+            seen.push_back(sourceNode);
+            for (int i = 0; i < (nodes.size() - 1); i++){
+                int minimumEdgeWeight = INT_MIN;
+                Edge* currentEdge = nullptr;
+                for (int j = 0; j < seen.size(); j++){
+                    for (int k = 0; k < (seen[j]->neighbors.size()); k++){
+                        if (hasSeen(seen, seen[i]->neihbors[k])){
+                            continue;
+                        }
+                        else{
+                            Edge* candidateEdge = edgeSearch(edges, seen[j], seen[j]->neighbors[k])
+                            if (candidateEdge == nullptr){
+                                continue;
+                            }
+                            else if{
+                                candidateEdge->weight <= minimumEdgeWeight;
+                                currentEdge = candidateEdge;
+                                minimumEdgeWeight = candidateEdge->weight;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        ~UndirectedGraph(){
             for (int i = 0; i < nodes.size(); i++){
                 delete nodes[i];
             }
