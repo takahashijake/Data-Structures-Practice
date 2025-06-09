@@ -82,7 +82,7 @@ class UndirectedGraph{
 
         bool hasSeen(std::vector<Node*> seenVector, Node* candidate){
             for (int i = 0; i < seenVector.size(); i++){
-                if (candidate == seenvector[i]){
+                if (candidate == seenVector[i]){
                     return true;
                 }
             }
@@ -194,31 +194,45 @@ class UndirectedGraph{
                 throw std::logic_error("Node does not exist!");
             }
 
-            std::vector<Edge*> MST:
+            std::vector<Edge*> MST;
             std::vector<Node*> seen;
             seen.push_back(sourceNode);
             for (int i = 0; i < (nodes.size() - 1); i++){
-                int minimumEdgeWeight = INT_MIN;
+                int minimumEdgeWeight = INT_MAX;
                 Edge* currentEdge = nullptr;
                 for (int j = 0; j < seen.size(); j++){
                     for (int k = 0; k < (seen[j]->neighbors.size()); k++){
-                        if (hasSeen(seen, seen[i]->neihbors[k])){
+                        if (hasSeen(seen, seen[j]->neighbors[k])){
                             continue;
                         }
                         else{
-                            Edge* candidateEdge = edgeSearch(edges, seen[j], seen[j]->neighbors[k])
+                            Edge* candidateEdge = edgeSearch(edges, seen[j], seen[j]->neighbors[k]);
                             if (candidateEdge == nullptr){
                                 continue;
                             }
-                            else if{
-                                candidateEdge->weight <= minimumEdgeWeight;
-                                currentEdge = candidateEdge;
-                                minimumEdgeWeight = candidateEdge->weight;
+                            else{
+                                if (candidateEdge->weight <= minimumEdgeWeight){
+                                    currentEdge = candidateEdge;
+                                    minimumEdgeWeight = candidateEdge->weight;
+                                }
                             }
                         }
                     }
                 }
+                MST.push_back(currentEdge);
+                if (!hasSeen(seen, currentEdge->firstNode)){
+                    seen.push_back(currentEdge->firstNode);
+                }
+                else{
+                    seen.push_back(currentEdge->secondNode);
+                }
             }
+            int count = 0;
+            for (int i = 0; i < MST.size(); i++){
+                count = count + MST[i]->weight;
+                std::cout << "Edge" << i << ": " << MST[i]->firstNode->value << "->" << MST[i]->secondNode->value << "->" << MST[i]->weight << std::endl;
+            }
+            std::cout << "Total weight is: " << count << std::endl;
         }
 
         ~UndirectedGraph(){
