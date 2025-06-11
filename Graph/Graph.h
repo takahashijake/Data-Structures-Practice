@@ -187,6 +187,45 @@ class UndirectedGraph{
                 std::cout << std::endl;
             }
         }
+        void DepthFirstSearch(T value){
+
+            Node* sourceNode = nodeSearchHelper(value);
+            if (sourceNode == nullptr){
+                throw std::logic_error("Node does not exist!");
+                return;
+            }
+            std::cout << "Level 0: " << sourceNode->value << std::endl;
+            std::vector<Node*> seen;
+            std::vector<Node*> current;
+            std::vector<Node*> currentHelp;
+            seen.push_back(sourceNode);
+            current.push_back(sourceNode);
+
+            int count = 0; 
+            if (seen.size() <= nodes.size() && current.empty()){
+                count++;
+                std::cout << "Level " << count << ": " << std::endl;
+                for (int i = 0; i < current.size(); i++){
+                    for (int j = 0; j < current[i]->neighbors.size(); j++){
+                        if (!hasSeen(seen, current[i]->neighbors[j])){
+                            std::cout << current[i]->value << " ";
+                            seen.push_back(current[i]->neighbors[j]);
+                            currentHelp.push_back(current[i]->neighbors[j]);
+                        }
+                    }
+                }
+                std::cout << std::endl;
+                current.clear();
+                std::cout << "Current size afer current.clear() is: " << current.size() << std::endl;
+                for (int i = 0; i < currentHelp.size(); i++){
+                    current.push_back(currentHelp[i]);
+                }
+                currentHelp.clear();
+
+            }
+
+        }
+
 
         void PrimsAlgorithm(T value){
             Node* sourceNode = nodeSearchHelper(value);
@@ -228,11 +267,15 @@ class UndirectedGraph{
                 }
             }
             int count = 0;
-            for (int i = 0; i < MST.size(); i++){
+            /*for (int i = 0; i < MST.size(); i++){
                 count = count + MST[i]->weight;
                 std::cout << "Edge" << i << ": " << MST[i]->firstNode->value << "->" << MST[i]->secondNode->value << "->" << MST[i]->weight << std::endl;
+            }*/
+            //std::cout << "Total weight is: " << count << std::endl;
+
+            for (int i = 0; i < MST.size(); i++){
+                std::cout << MST[i]->firstNode->value << std::endl;
             }
-            std::cout << "Total weight is: " << count << std::endl;
         }
 
         ~UndirectedGraph(){
