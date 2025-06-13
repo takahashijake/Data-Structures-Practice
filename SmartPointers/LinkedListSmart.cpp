@@ -73,6 +73,32 @@ class LinkedList{
                     std::unique_ptr<Node> tailDelete = std::move(root);
                     root = nullptr;
                 }
+                else{
+                    std::unique_ptr<Node> tailDelete;
+                    Node* current = root.get();
+                    while (true){
+                        if (current->next->value == tail->value){
+                            tailDelete.reset(current);
+                            break;
+                        }
+                        current = current->next.get();
+                    }
+                    tailDelete->next = nullptr;
+                    tail = tailDelete.get();
+                    tailDelete.release();
+                }
+            }
+            else{  
+                Node* parent = root.get();
+                while (true){
+                    if (parent->next->value == value){
+                        break;               
+                    }
+                    parent = parent->next.get();
+                }
+                std::unique_ptr<Node> nodeToDelete = std::move(parent->next);
+                parent->next = std::move(nodeToDelete->next);
+                nodeToDelete->next = nullptr;
             }
         }
 };
@@ -81,9 +107,16 @@ int main(){
 
     LinkedList<int> myList;
     myList.addNode(1);
+    myList.addNode(2);
+    myList.addNode(3);
+    myList.addNode(4);
     myList.printList();
-    myList.deleteNode(1);
+    myList.deleteNode(3);
     myList.printList();
+    myList.deleteNode(2);
+    myList.printList();
+
+
     return 0;
 
 }

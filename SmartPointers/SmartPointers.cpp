@@ -47,12 +47,11 @@ void createUniquePtrArray(){
 
 int main(){
 
-    std::shared_ptr<MyObject> sharedObject = std::make_shared<MyObject>(1, "thisObject");
-    processObject(sharedObject);
-    std::cout << std::endl;
-    inspectObject(sharedObject);
-    std::cout << std::endl;
-    processObject(sharedObject);
+    std::unique_ptr<MyObject> myObjects[10];
+
+    for (int i = 0; i < 10; i++){
+        myObjects[i] = std::make_unique<MyObject>(10 + i, "Item");
+    }
 
 
     return 0;
