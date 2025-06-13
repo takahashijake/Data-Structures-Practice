@@ -119,7 +119,25 @@ class LinkedList{
             return false;
         }
 
-        
+        void append(T value){
+            std::unique_ptr<Node> newNode = std::make_unique<Node>();
+            newNode->value = value;
+            newNode->next = nullptr;
+            
+            //What to do? Want to make the unique_ptr's next pointer point to the newNode, then make tail point to the newNode;
+            tail->next = std::move(newNode);
+            tail = tail->next.get();
+        }
+
+        void prepend(T value){
+            std::unique_ptr<Node> newNode = std::make_unique<Node>();
+            newNode->value = value;
+            newNode->next = nullptr;
+
+            newNode->next = std::move(root);
+            root = std::move(newNode);
+        }
+
 };
 
 int main(){
@@ -129,6 +147,7 @@ int main(){
     myList.addNode(2);
     myList.addNode(3);
     myList.addNode(4);
+    myList.append(5);
     myList.printList();
     myList.deleteNode(3);
     myList.printList();
