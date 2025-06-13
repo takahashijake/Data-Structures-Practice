@@ -101,6 +101,25 @@ class LinkedList{
                 nodeToDelete->next = nullptr;
             }
         }
+
+        int getSize() const{
+            Node* current = root.get();
+            int count = 0;
+            while (current != nullptr){
+                count++;
+                current = current->next.get();
+            }
+            return count;
+        }
+
+        bool isEmpty() const{
+            if (root == nullptr){
+                return true;
+            }
+            return false;
+        }
+
+        
 };
 
 int main(){
