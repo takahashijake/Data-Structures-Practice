@@ -85,6 +85,25 @@ class LinkedList{
             }
             std::cout << std::endl;
         }
+
+        int getSize() const{
+            Node* current = root.get();
+            int count = 0;
+            while (current != nullptr){
+                count++;
+                current = current->next.get();
+            }
+            return count;
+        }
+
+        bool isEmpty() const{
+            if (root == nullptr){
+                return true;
+            }
+            return false;
+        }
+
+
 };
 
 int main(){
@@ -94,6 +113,11 @@ int main(){
     myList.addNode(2);
     myList.addNode(3);
     myList.addNode(4);
+    int count = myList.getSize();
+    std::cout << "Count is: " << count << std::endl;
+    if (!myList.isEmpty()){
+        std::cout << "List is not empty" << std::endl;
+    }
     myList.printList();
     myList.deleteNode(2);
      myList.printList();
