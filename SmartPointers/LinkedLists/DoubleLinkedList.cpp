@@ -67,16 +67,13 @@ class LinkedList{
                 std::shared_ptr<Node> tailParent = tailNode->parent.lock();
                 tailParent->next = nullptr;
                 tail = std::move(tailParent);
-
             }
             else{
-                if (!deleteNode->parent.expired() && !deleteNode->next->parent.expired()){
-                    std::shared_ptr<Node> deleteNodeParent = deleteNode->parent.lock();
-                    deleteNodeParent->next = deleteNode->next;
-                    deleteNode->next->parent = deleteNode->next;
-                    deleteNode->next = nullptr;
-                    deleteNodeParent = nullptr;
-                }
+                std::shared_ptr<Node> deleteNodeParent = deleteNode->parent.lock();
+                deleteNodeParent->next = deleteNode->next;
+                deleteNode->next->parent = deleteNode->parent;
+                deleteNode->next = nullptr;
+                deleteNodeParent = nullptr;
             }
         }
 
@@ -98,7 +95,7 @@ int main(){
     myList.addNode(3);
     myList.addNode(4);
     myList.printList();
-    myList.deleteNode(4);
+    myList.deleteNode(2);
      myList.printList();
     myList.deleteNode(3);
     myList.printList();
