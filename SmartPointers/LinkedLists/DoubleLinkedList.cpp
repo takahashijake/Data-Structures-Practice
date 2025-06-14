@@ -56,11 +56,18 @@ class LinkedList{
                 throw std::logic_error("Cannot delete a node that doesn't exist!");
             }
             if (deleteNode->value == root->value){
-                 std::shared_ptr<Node> rootNodeNextParent = root->next->parent.lock();
+                std::shared_ptr<Node> rootNodeNextParent = root->next->parent.lock();
                 std::shared_ptr<Node> rootNodeNext = std::move(root->next);
                 std::shared_ptr<Node> rootNode = std::move(root);
                 rootNodeNextParent = nullptr;
                 root = std::move(rootNodeNext);
+            }
+            else if (deleteNode->value == tail->value){
+                std::shared_ptr<Node> tailNode = std::move(tail);
+                std::shared_ptr<Node> tailParent = tailNode->parent.lock();
+                tailParent->next = nullptr;
+                tail = std::move(tailParent);
+
             }
             else{
                 if (!deleteNode->parent.expired() && !deleteNode->next->parent.expired()){
@@ -91,9 +98,9 @@ int main(){
     myList.addNode(3);
     myList.addNode(4);
     myList.printList();
-    myList.deleteNode(1);
+    myList.deleteNode(4);
      myList.printList();
-    myList.deleteNode(2);
+    myList.deleteNode(3);
     myList.printList();
     return 0;
 }
