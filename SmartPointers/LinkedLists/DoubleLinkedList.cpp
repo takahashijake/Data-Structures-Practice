@@ -56,11 +56,16 @@ class LinkedList{
                 throw std::logic_error("Cannot delete a node that doesn't exist!");
             }
             if (deleteNode->value == root->value){
-                std::shared_ptr<Node> rootNodeNextParent = root->next->parent.lock();
-                std::shared_ptr<Node> rootNodeNext = std::move(root->next);
-                std::shared_ptr<Node> rootNode = std::move(root);
-                rootNodeNextParent = nullptr;
-                root = std::move(rootNodeNext);
+                if (deleteNode->next == nullptr){
+                    root == nullptr;
+                }
+                else{
+                    std::shared_ptr<Node> rootNodeNextParent = root->next->parent.lock();
+                    std::shared_ptr<Node> rootNodeNext = std::move(root->next);
+                    std::shared_ptr<Node> rootNode = std::move(root);
+                    rootNodeNextParent = nullptr;
+                    root = std::move(rootNodeNext);
+                }
             }
             else if (deleteNode->value == tail->value){
                 std::shared_ptr<Node> tailNode = std::move(tail);
@@ -75,6 +80,38 @@ class LinkedList{
                 deleteNode->next = nullptr;
                 deleteNodeParent = nullptr;
             }
+        }
+
+        void deleteBeginning(){
+            std::shared_ptr<Node> rootNode = std::move(root);
+            root = std::move(rootNode->next);
+            rootNode->next = nullptr;
+            std::shared_ptr<Node> rootParent = rootNode->parent.lock();
+            rootParent = nullptr;
+        }
+
+        void deleteEnd(){
+            std::shared_ptr<Node> tailNode = std::move(tail);
+            std::shared_ptr<Node> tailParent = tailNode->parent.lock();
+            tail = std::move(tailParent);
+            tailParent = nullptr;
+            tail->next = nullptr;
+        }
+
+        void append(T value){
+
+            std::shared_ptr<Node> newNode = std::make_shared<Node>(std::weak_ptr<Node>(), nullptr, value);
+            tail->next = newNode;
+            newNode->parent = tail;
+            tail = std::move(newNode);
+        }
+
+        void prepend(T value){
+            std::shared_ptr<Node> newNode = std::make_shared<Node>(std::weak_ptr<Node>(), nullptr, value);
+            std::shared_ptr<Node> rootParent = root->parent.lock();
+            rootParent = newNode;
+            newNode->next = root;
+            root = std::move(newNode);
         }
 
         void printList(){
@@ -113,15 +150,23 @@ int main(){
     myList.addNode(2);
     myList.addNode(3);
     myList.addNode(4);
-    int count = myList.getSize();
-    std::cout << "Count is: " << count << std::endl;
-    if (!myList.isEmpty()){
-        std::cout << "List is not empty" << std::endl;
-    }
     myList.printList();
-    myList.deleteNode(2);
-     myList.printList();
-    myList.deleteNode(3);
+    myList.append(5);
     myList.printList();
+    myList.append(6);
+    myList.printList();
+
+    myList.deleteEnd();
+    myList.printList();
+    myList.deleteEnd();
+    myList.printList();
+    myList.prepend(1);
+    myList.printList();
+    myList.prepend(2);
+    myList.printList();
+    myList.prepend(3);
+    myList.printList();
+
+
     return 0;
 }
