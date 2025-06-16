@@ -19,16 +19,6 @@ class BST{
 
         std::shared_ptr<Node> root;
 
-        Node* nodeSearch(T value){
-            Node* current = root;
-            while (current != nullptr){
-                if (current->value == value){
-                    return current;
-                }
-                current = current->next.get();
-            }
-            return nullptr;
-        }
 
         void inOrderTraversalHelper(const std::shared_ptr<Node>& current){
             if (current != nullptr){
@@ -66,6 +56,30 @@ class BST{
                 getSizeHelper(current->rightNode, count);
             }
         }
+
+        Node* nodeSearchHelper(T value, Node* current){
+            if (current->value == value){
+                return current;
+            }
+            else if (value > current->value){
+                if (current->right == nullptr){
+                    return nullptr;
+                }
+                else{
+                    return nodeSearchHelper(value, current->right);
+                }
+            }
+            else if (value < current->value){
+                if (current->left == nullptr){
+                    return nullptr;
+                }
+                else{
+                    return nodeSearchHelper(value, current->left);
+                }
+            }
+            return nullptr;
+        }
+        
     public:
 
         BST(){
@@ -81,6 +95,10 @@ class BST{
             else{
                 addNodeHelper(newNode, root);
             }
+        }
+
+        void deleteNode(T value){
+            Node* deleteNode;
         }
 
         int getSize(){
