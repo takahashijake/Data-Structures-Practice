@@ -58,6 +58,14 @@ class BST{
                 }
             }
         }
+
+        void getSizeHelper(const std::shared_ptr<Node>& current, int& count){
+            if (current != nullptr){
+                count++;
+                getSizeHelper(current->leftNode, count);
+                getSizeHelper(current->rightNode, count);
+            }
+        }
     public:
 
         BST(){
@@ -75,8 +83,17 @@ class BST{
             }
         }
 
-        void getSize() const{
+        int getSize(){
             int count = 0;
+            getSizeHelper(root, count);
+            return count;
+        }
+
+        bool isEmpty() const{
+            if (root == nullptr){
+                return true;
+            }
+            return false;
         }
 
         void inOrderTraversal(){
@@ -99,5 +116,15 @@ int main(){
     myGraph.inOrderTraversal();
     myGraph.addNode(4);
     myGraph.inOrderTraversal();
+    int count = myGraph.getSize();
+    std::cout << "Size of graph is " << count << " nodes long!" << std::endl;
+    if (!myGraph.isEmpty()){
+        std::cout << "Graph is not empty!" << std::endl;
+    }
+    else if (myGraph.isEmpty()){
+        std::cout << "Graph is empty!" << std::endl;
+    }
+    
+
     return 0;
 }
