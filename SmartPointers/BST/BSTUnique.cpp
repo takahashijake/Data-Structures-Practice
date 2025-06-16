@@ -75,6 +75,10 @@ class BST{
             }
         }
 
+        void getSize() const{
+            int count = 0;
+        }
+
         void inOrderTraversal(){
             inOrderTraversalHelper(root);
             std::cout << std::endl;
@@ -92,6 +96,8 @@ int main(){
     myGraph.addNode(1);
     myGraph.addNode(2);
     myGraph.addNode(3);
+    myGraph.inOrderTraversal();
+    myGraph.addNode(4);
     myGraph.inOrderTraversal();
     return 0;
 }
