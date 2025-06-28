@@ -34,7 +34,7 @@ class BST{
             if (addNode->value > currentNode->value){
                 if (currentNode->rightNode == nullptr){
                     currentNode->rightNode = std::move(addNode);
-                    addNode->parent = currentNode;
+                    addNode->parentNode = currentNode;
                     return;
                 }
                 else{
@@ -44,7 +44,7 @@ class BST{
             else if (addNode->value < currentNode->value){
                 if (currentNode->leftNode == nullptr){
                     currentNode->leftNode = std::move(addNode);
-                    addNode->parent = currentNode;
+                    addNode->parentNode = currentNode;
                     return;
                 }
                 else{
@@ -107,11 +107,11 @@ class BST{
             std:: cout << "value of delete node is: " << deleteNode->value << std::endl;
             if (deleteNode->rightNode == nullptr && deleteNode->leftNode == nullptr){
                 if (deleteNode == root.get()){
-                    root = nullptr;
+                    root.reset();
                 }
-                Node* deleteNodeParent = deleteNode->parent.get();
-                else if (deleteNodeParent->right.get() == deleteNode){
-
+                else if (deleteNode->parentNode->leftNode.get() == deleteNode){
+                    Node* deleteNodeParent = deleteNode->parentNode.get();
+                    deleteNodeParent->leftNode = nullptr;
                 }
             }
         }
@@ -144,8 +144,9 @@ int main(){
     BST<int> myGraph;
 
     myGraph.addNode(2);
+    myGraph.addNode(1);
     myGraph.inOrderTraversal();
-    myGraph.deleteNode(2);
+    myGraph.deleteNode(1);
     myGraph.inOrderTraversal();
 
     return 0;
