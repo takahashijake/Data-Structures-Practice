@@ -127,13 +127,11 @@ class BST{
                 }
                 else if (deleteNode->parentNode->rightNode.get() == deleteNode){
                     std::cout << "This else " << std::endl;
-                    deleteNode->leftNode->parentNode = (deleteNode->parentNode);
-                    deleteNode->parentNode->rightNode = (deleteNode->leftNode);
+                    deleteNode->leftNode->parentNode = deleteNode->parentNode; //both are shared_ptr types, so able to use assignment
+                    deleteNode->parentNode->rightNode = deleteNode->leftNode; //operator 
 
                     deleteNode->leftNode = nullptr;
                     deleteNode->parentNode = nullptr;
-
-
                 }
         }
     }
