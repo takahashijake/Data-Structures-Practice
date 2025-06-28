@@ -8,11 +8,13 @@ class BST{
         struct Node{
             std::shared_ptr<Node> leftNode;
             std::shared_ptr<Node> rightNode;
+            std::shared_ptr<Node> parentNode;
             T value;
 
-            Node(std::shared_ptr<Node> leftNodeArgument, std::shared_ptr<Node> rightNodeArgument, T valueArgument){
+            Node(std::shared_ptr<Node> leftNodeArgument, std::shared_ptr<Node> rightNodeArgument, std::shared_ptr<Node> parentNodeArgument, T valueArgument){
                 leftNode = leftNodeArgument;
                 rightNode = rightNodeArgument;
+                parentNode = parentNodeArgument;
                 value = valueArgument;
             }
         };
@@ -32,6 +34,7 @@ class BST{
             if (addNode->value > currentNode->value){
                 if (currentNode->rightNode == nullptr){
                     currentNode->rightNode = std::move(addNode);
+                    addNode->parent = currentNode;
                     return;
                 }
                 else{
@@ -41,6 +44,7 @@ class BST{
             else if (addNode->value < currentNode->value){
                 if (currentNode->leftNode == nullptr){
                     currentNode->leftNode = std::move(addNode);
+                    addNode->parent = currentNode;
                     return;
                 }
                 else{
@@ -89,7 +93,7 @@ class BST{
         }
 
         void addNode(T value){
-            std::shared_ptr<Node> newNode = std::make_shared<Node>(nullptr, nullptr, value);
+            std::shared_ptr<Node> newNode = std::make_shared<Node>(nullptr, nullptr, nullptr, value);
             if (root == nullptr){
                 root = std::move(newNode);
             }
@@ -101,8 +105,14 @@ class BST{
         void deleteNode(T value){
             Node* deleteNode = nodeSearchHelper(value, root);
             std:: cout << "value of delete node is: " << deleteNode->value << std::endl;
-            if (deleteNode == root){
-                if (deleteNode->left == nullptr )
+            if (deleteNode->rightNode == nullptr && deleteNode->leftNode == nullptr){
+                if (deleteNode == root.get()){
+                    root = nullptr;
+                }
+                Node* deleteNodeParent = deleteNode->parent.get();
+                else if (deleteNodeParent->right.get() == deleteNode){
+
+                }
             }
         }
 
@@ -133,23 +143,10 @@ int main(){
 
     BST<int> myGraph;
 
-    myGraph.addNode(1);
     myGraph.addNode(2);
-    myGraph.addNode(3);
     myGraph.inOrderTraversal();
-    myGraph.addNode(4);
-    myGraph.inOrderTraversal();
-    int count = myGraph.getSize();
-    std::cout << "Size of graph is " << count << " nodes long!" << std::endl;
-    if (!myGraph.isEmpty()){
-        std::cout << "Graph is not empty!" << std::endl;
-    }
-    else if (myGraph.isEmpty()){
-        std::cout << "Graph is empty!" << std::endl;
-    }
-
     myGraph.deleteNode(2);
-    
+    myGraph.inOrderTraversal();
 
     return 0;
 }
