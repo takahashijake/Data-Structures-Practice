@@ -113,9 +113,30 @@ class BST{
                     Node* deleteNodeParent = deleteNode->parentNode.get();
                     deleteNodeParent->leftNode = nullptr;
                 }
+                else if (deleteNode->parentNode->rightNode.get() == deleteNode){
+                    Node* deleteNodeParent = deleteNode->parentNode.get();
+                    deleteNodeParent->rightNode = nullptr;
+                }
             }
-        }
+            else if (deleteNode->rightNode == nullptr && deleteNode->leftNode != nullptr){
+                if (deleteNode == root.get()){
+                    std::cout << "deleteNode has no children and is the root!" << std::endl;
+                    root = std::move(deleteNode->leftNode);
+                    root->parentNode.reset();
 
+                }
+                else if (deleteNode->parentNode->rightNode.get() == deleteNode){
+                    std::cout << "This else " << std::endl;
+                    deleteNode->leftNode->parentNode = (deleteNode->parentNode);
+                    deleteNode->parentNode->rightNode = (deleteNode->leftNode);
+
+                    deleteNode->leftNode = nullptr;
+                    deleteNode->parentNode = nullptr;
+
+
+                }
+        }
+    }
         int getSize(){
             int count = 0;
             getSizeHelper(root, count);
@@ -143,11 +164,14 @@ int main(){
 
     BST<int> myGraph;
 
-    myGraph.addNode(2);
     myGraph.addNode(1);
+    myGraph.addNode(5);
+    myGraph.addNode(3);
     myGraph.inOrderTraversal();
-    myGraph.deleteNode(1);
+    myGraph.deleteNode(5);
     myGraph.inOrderTraversal();
+
+
 
     return 0;
 }
