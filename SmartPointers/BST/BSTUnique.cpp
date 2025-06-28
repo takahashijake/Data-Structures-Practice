@@ -57,29 +57,30 @@ class BST{
             }
         }
 
-        Node* nodeSearchHelper(T value, Node* current){
+        Node* nodeSearchHelper(T value, const std::shared_ptr<Node>& current){
             if (current->value == value){
-                return current;
+                Node* currentNode = current.get();
+                return currentNode;
             }
             else if (value > current->value){
-                if (current->right == nullptr){
+                if (current->rightNode == nullptr){
                     return nullptr;
                 }
                 else{
-                    return nodeSearchHelper(value, current->right);
+                    return nodeSearchHelper(value, current->rightNode);
                 }
             }
             else if (value < current->value){
-                if (current->left == nullptr){
+                if (current->leftNode == nullptr){
                     return nullptr;
                 }
                 else{
-                    return nodeSearchHelper(value, current->left);
+                    return nodeSearchHelper(value, current->leftNode);
                 }
             }
             return nullptr;
         }
-        
+
     public:
 
         BST(){
@@ -98,7 +99,11 @@ class BST{
         }
 
         void deleteNode(T value){
-            Node* deleteNode;
+            Node* deleteNode = nodeSearchHelper(value, root);
+            std:: cout << "value of delete node is: " << deleteNode->value << std::endl;
+            if (deleteNode == root){
+                if (deleteNode->left == nullptr )
+            }
         }
 
         int getSize(){
@@ -142,6 +147,8 @@ int main(){
     else if (myGraph.isEmpty()){
         std::cout << "Graph is empty!" << std::endl;
     }
+
+    myGraph.deleteNode(2);
     
 
     return 0;
