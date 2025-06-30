@@ -100,10 +100,11 @@ class BST{
 
         void deleteNode(T value){
             Node* deleteNode = nodeSearchHelper(value, root);
-            std:: cout << "value of delete node is: " << deleteNode->value << std::endl;
-            if (deleteNode == root){
-                if (deleteNode->left == nullptr )
+            if (deleteNode == nullptr){
+                throw std::logic_error("cannot delete from an empty tree!");
             }
+            
+        
         }
 
         int getSize(){
