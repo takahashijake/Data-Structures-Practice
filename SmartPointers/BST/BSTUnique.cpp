@@ -85,6 +85,22 @@ class BST{
             return nullptr;
         }
 
+        Node* findSuccessor(Node* current){
+            if (current->leftNode == nullptr){
+                return current;
+            }
+            else{
+                return findSuccessor(current->leftNode.get());
+            }
+            return nullptr;
+        }
+
+        void swapNodes(Node* firstNode, Node* secondNode){
+            int temp = firstNode->value;
+            firstNode->value = secondNode->value;
+            secondNode->value = temp;
+        }
+
     public:
 
         BST(){
@@ -157,7 +173,9 @@ class BST{
                 }
             }
             else if (deleteNode->leftNode != nullptr && deleteNode->rightNode != nullptr){
-                
+                Node* successor = findSuccessor(deleteNode->rightNode.get());
+                swapNodes(deleteNode, successor);
+                deleteNodeHelper(successor);
             }
         }
 
@@ -307,6 +325,33 @@ int main(){
     myGraph.deleteNode(5);
     myGraph.inOrderTraversal();
    
+    std::cout << std::endl;
 
+    myGraph.addNode(5);
+    myGraph.addNode(4);
+    myGraph.addNode(6);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(6);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(4);
+    myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(8);
+    myGraph.addNode(5);
+    myGraph.addNode(6);
+    myGraph.addNode(4);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(6);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(4);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(8);
+    myGraph.inOrderTraversal();
     return 0;
 }
