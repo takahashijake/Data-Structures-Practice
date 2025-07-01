@@ -200,12 +200,14 @@ class UndirectedGraph{
             std::vector<Node*> visited;
             std::vector<Node*> current;
             std::vector<Node*> temp; 
+            std::cout << "Level 0: " << sourceNode->value << std::endl;
             visited.push_back(sourceNode);
             current.push_back(sourceNode);
-            int count = 0; 
+            int count = 1; 
             while (current.size() != 0){
                 std::cout << "Level " << count << ": ";
                 for (int i = 0; i < current.size(); i++){
+                    
                     for (int j = 0; j < current[i]->neighbors.size(); j++){
                         if (hasSeen(visited, current[i]->neighbors[j])){
                             continue;
@@ -215,9 +217,13 @@ class UndirectedGraph{
                             visited.push_back(current[i]->neighbors[j]);
                             temp.push_back(current[i]->neighbors[j]);
                         }
-                    }
+                        
                 }
-                std::cout << std::endl;
+                }
+                std::cout << std::endl; 
+                //Error: Was reseting current inside the loop over the current vector. This was causing 
+                //current to reset after each processs of one element of current, which causes errors
+
                 current = temp;
                 temp.clear();
                 count++;
