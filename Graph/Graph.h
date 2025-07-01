@@ -80,7 +80,7 @@ class UndirectedGraph{
             return nullptr;
         }
 
-        bool hasSeen(std::vector<Node*> seenVector, Node* candidate){
+        bool hasSeen(const std::vector<Node*>& seenVector, Node* candidate){
             for (int i = 0; i < seenVector.size(); i++){
                 if (candidate == seenVector[i]){
                     return true;
@@ -193,24 +193,37 @@ class UndirectedGraph{
                 throw std::logic_error("Graph is empty!");
                 return;
             }
-            Node* sourceNode = nodeSearchhelper(value);
+            Node* sourceNode = nodeSearchHelper(value);
             if (sourceNode == nullptr){
                 throw std::logic_error("Node does not exist!");
             }
             std::vector<Node*> visited;
             std::vector<Node*> current;
+            std::vector<Node*> temp; 
             visited.push_back(sourceNode);
-            current.push_back(current);
-            for (int i = 0; i < current.size(); i++){
-                for (int j = 0; j < current[i]->neighbors.size(); j++){
-                    if (!hasSeen(visited, current[i]->neighbors[j])){
-                        
+            current.push_back(sourceNode);
+            int count = 0; 
+            while (current.size() != 0){
+                std::cout << "Level " << count << ": ";
+                for (int i = 0; i < current.size(); i++){
+                    for (int j = 0; j < current[i]->neighbors.size(); j++){
+                        if (hasSeen(visited, current[i]->neighbors[j])){
+                            continue;
+                        }
+                        else if (!hasSeen(visited, current[i]->neighbors[j])){
+                            std::cout << current[i]->neighbors[j]->value << " ";
+                            visited.push_back(current[i]->neighbors[j]);
+                            temp.push_back(current[i]->neighbors[j]);
+                        }
                     }
                 }
+                std::cout << std::endl;
+                current = temp;
+                temp.clear();
+                count++;
             }
-
-
         }
+
 
 
         void PrimsAlgorithm(T value){
