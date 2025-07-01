@@ -8,11 +8,13 @@ class BST{
         struct Node{
             std::shared_ptr<Node> leftNode;
             std::shared_ptr<Node> rightNode;
+            std::shared_ptr<Node> parentNode; 
             T value;
 
-            Node(std::shared_ptr<Node> leftNodeArgument, std::shared_ptr<Node> rightNodeArgument, T valueArgument){
+            Node(std::shared_ptr<Node> leftNodeArgument, std::shared_ptr<Node> rightNodeArgument, std::shared_ptr<Node> parentNodeArgument, T valueArgument){
                 leftNode = leftNodeArgument;
                 rightNode = rightNodeArgument;
+                parentNode = parentNodeArgument;
                 value = valueArgument;
             }
         };
@@ -32,6 +34,7 @@ class BST{
             if (addNode->value > currentNode->value){
                 if (currentNode->rightNode == nullptr){
                     currentNode->rightNode = std::move(addNode);
+                    addNode->parentNode = currentNode;
                     return;
                 }
                 else{
@@ -41,6 +44,7 @@ class BST{
             else if (addNode->value < currentNode->value){
                 if (currentNode->leftNode == nullptr){
                     currentNode->leftNode = std::move(addNode);
+                    addNode->parentNode = currentNode;
                     return;
                 }
                 else{
@@ -85,11 +89,10 @@ class BST{
 
         BST(){
             root = nullptr;
-            std::cout << "BST successfully initalized!" << std::endl;
         }
 
         void addNode(T value){
-            std::shared_ptr<Node> newNode = std::make_shared<Node>(nullptr, nullptr, value);
+            std::shared_ptr<Node> newNode = std::make_shared<Node>(nullptr, nullptr, nullptr, value);
             if (root == nullptr){
                 root = std::move(newNode);
             }
@@ -98,13 +101,46 @@ class BST{
             }
         }
 
+        void deleteNodeHelper(Node* deleteNode){
+            if (root.get() == nullptr){
+                throw std::logic_error("Cannot delete an empty BST");
+            } 
+            if (deleteNode->leftNode == nullptr && deleteNode->rightNode == nullptr){
+                if (root.get() == deleteNode){
+                    root = nullptr;
+                }
+                else if (deleteNode->parentNode->rightNode.get() == deleteNode){
+                    deleteNode->parentNode->rightNode = nullptr;
+                    deleteNode->parentNode = nullptr;
+                }
+                else if (deleteNode->parentNode->leftNode.get() == deleteNode){
+                    deleteNode->parentNode->leftNode = nullptr;
+                    deleteNode->parentNode = nullptr;
+                }
+            }
+            else if (deleteNode->leftNode != nullptr && deleteNode->rightNode == nullptr){
+                if (root.get() == deleteNode){
+                    root = deleteNode->leftNode;
+                    deleteNode->leftNode->parentNode = nullptr;
+                }
+                //The node to delete has only a left child, and is the right child of a parent node 
+                else if (deleteNode->parentNode->rightNode.get() == deleteNode){ 
+                    deleteNode->parentNode->rightNode = deleteNode->leftNode;
+                    deleteNode->leftNode->parentNode = deleteNode->parentNode;
+
+                    deleteNode->leftNode = nullptr;
+                    deleteNode->parentNode = nullptr;
+
+                }
+            }
+        }
+
         void deleteNode(T value){
-            Node* deleteNode = nodeSearchHelper(value, root);
-            if (deleteNode == nullptr){
+            if (root == nullptr){
                 throw std::logic_error("cannot delete from an empty tree!");
             }
-            
-        
+            Node* Node = nodeSearchHelper(value, root);
+            deleteNodeHelper(Node);
         }
 
         int getSize(){
@@ -121,11 +157,16 @@ class BST{
         }
 
         void inOrderTraversal(){
-            inOrderTraversalHelper(root);
-            std::cout << std::endl;
+            if (root == nullptr){
+                std::cout << "BST is empty!" << std::endl;
+            }
+            else{
+                inOrderTraversalHelper(root);
+                std::cout << std::endl;
+            }
         }
         ~BST(){
-            std::cout << "BST successfully deleted!" << std::endl;
+   
         }
     
 };
@@ -135,22 +176,62 @@ int main(){
     BST<int> myGraph;
 
     myGraph.addNode(1);
-    myGraph.addNode(2);
-    myGraph.addNode(3);
     myGraph.inOrderTraversal();
-    myGraph.addNode(4);
+    myGraph.deleteNode(1);
     myGraph.inOrderTraversal();
-    int count = myGraph.getSize();
-    std::cout << "Size of graph is " << count << " nodes long!" << std::endl;
-    if (!myGraph.isEmpty()){
-        std::cout << "Graph is not empty!" << std::endl;
-    }
-    else if (myGraph.isEmpty()){
-        std::cout << "Graph is empty!" << std::endl;
-    }
 
-    myGraph.deleteNode(2);
+    std::cout << std::endl;
+
+    try{
+        myGraph.deleteNode(1);
+    }
+    catch (std::logic_error){
+        std::cout << "Empty BST delete exception works!" << std::endl;
+        std::cout << std::endl;
+    }
     
+
+    myGraph.addNode(1);
+    myGraph.addNode(2);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(2);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(1);
+    myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(8);
+    myGraph.addNode(7);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(7);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(8);
+    myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(8);
+    myGraph.addNode(7);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(8);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(7);
+    myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(1);
+    myGraph.addNode(5);
+    myGraph.addNode(3);
+    myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(1);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(3);
+    myGraph.inOrderTraversal();
 
     return 0;
 }
