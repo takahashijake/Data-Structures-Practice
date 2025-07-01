@@ -128,10 +128,36 @@ class BST{
                     deleteNode->parentNode->rightNode = deleteNode->leftNode;
                     deleteNode->leftNode->parentNode = deleteNode->parentNode;
 
-                    deleteNode->leftNode = nullptr;
-                    deleteNode->parentNode = nullptr;
+               
+                }
+                //The node to delete has only a left child, and is the left child of a parent node 
+                else if (deleteNode->parentNode->leftNode.get() == deleteNode){
+                    deleteNode->parentNode->leftNode = deleteNode->leftNode;
+                    deleteNode->leftNode->parentNode = deleteNode->parentNode;
+
+    
+                }
+            }
+            else if (deleteNode->leftNode == nullptr && deleteNode->rightNode != nullptr){
+                if (root.get() == deleteNode){
+                    root = deleteNode->rightNode;
+                    deleteNode->rightNode->parentNode = nullptr;
+                }
+                //The node to delete only has a right child, and is the right child of a parent node 
+                else if (deleteNode->parentNode->rightNode.get() == deleteNode){
+                    deleteNode->parentNode->rightNode = deleteNode->rightNode;
+                    deleteNode->rightNode->parentNode = deleteNode->parentNode;
+
+        
+                }
+                else if (deleteNode->parentNode->leftNode.get() == deleteNode){
+                    deleteNode->parentNode->leftNode = deleteNode->rightNode;
+                    deleteNode->rightNode->parentNode = deleteNode->parentNode;
 
                 }
+            }
+            else if (deleteNode->leftNode != nullptr && deleteNode->rightNode != nullptr){
+                
             }
         }
 
@@ -224,14 +250,63 @@ int main(){
     myGraph.addNode(1);
     myGraph.addNode(5);
     myGraph.addNode(3);
-    myGraph.deleteNode(5);
     myGraph.inOrderTraversal();
     myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();;
+    myGraph.deleteNode(3);
     myGraph.inOrderTraversal();
     myGraph.deleteNode(1);
     myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(5);
+    myGraph.addNode(4);
+    myGraph.addNode(3);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(4);
+    myGraph.inOrderTraversal();
     myGraph.deleteNode(3);
     myGraph.inOrderTraversal();
+    myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(3);
+    myGraph.addNode(4);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(3);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(4);
+    myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(3);
+    myGraph.addNode(4);
+    myGraph.addNode(5);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(4);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(3);
+    myGraph.inOrderTraversal();
+
+    std::cout << std::endl;
+
+    myGraph.addNode(5);
+    myGraph.addNode(3);
+    myGraph.addNode(4);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(3);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(4);
+    myGraph.inOrderTraversal();
+    myGraph.deleteNode(5);
+    myGraph.inOrderTraversal();
+   
 
     return 0;
 }
