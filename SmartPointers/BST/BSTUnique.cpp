@@ -344,6 +344,17 @@ int main(){
     myGraph.addNode(5);
     myGraph.addNode(6);
     myGraph.addNode(4);
+
+    int x = myGraph.getSize();
+    if (x == 4){
+        std::cout << "Get size function works correctly!" << std::endl;
+    }
+    else{
+        std::cout << "Get size function does not work correctly! " << std::endl;
+    }
+    
+    std::cout << std::endl;
+
     myGraph.inOrderTraversal();
     myGraph.deleteNode(5);
     myGraph.inOrderTraversal();
@@ -353,5 +364,23 @@ int main(){
     myGraph.inOrderTraversal();
     myGraph.deleteNode(8);
     myGraph.inOrderTraversal();
+
+    std::cout << std::endl; 
+
+    int y = myGraph.getSize();
+    if (y == 0){
+        std::cout << "Get size function works correctly! " << std::endl;
+    }
+    else{
+        std::cout << "Get size function does not work correctly! " << std::endl;
+    }
+
+    if (myGraph.isEmpty()){
+        std::cout << "Is empty function works correctly!" << std::endl;
+    }
+    else{
+        std::cout << "Is empty function does not work correctly!" << std::endl;
+    }
+
     return 0;
 }
