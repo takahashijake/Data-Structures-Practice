@@ -93,7 +93,22 @@ class UndirectedGraph{
     public:
         
         UndirectedGraph(){
-        
+        }
+
+        UndirectedGraph(const UnDirectedGraph& other){
+            std::cout << "Copy constructor successfully called!" << std::endl;
+            for (int i = 0; i < this->nodes.size(); i++){
+                Node* newNode = new Node;
+                newNode->value = this->nodes[i]->value;
+                other->nodes.push_back(newNode);
+            }
+            for (int j = 0; j < this->edges.size(); j++){
+                Edge* newEdge = new Edge;
+                newEdge->firstNode = this->edges[j]->firstNode;
+                newEdge->secondNode = this->edges[j]->secondNode;
+                newEdge->weight = this->edges[j]->weight;
+                other->edges.push_back(newEdge);
+            }
         }
 
         void addNode(T value){
