@@ -112,6 +112,26 @@ class UndirectedGraph{
             }
         }
 
+        UndirectedGraph(UndirectedGraph&& other) noexcept {
+            std::cout << "Move constructor successfully called!" << std::endl;
+            for (int i = 0; i < other.nodes.size(); i++){
+                Node* newNode = new Node;
+                newNode->value = other.nodes[i]->value;
+                nodes.push_back(newNode);
+                other.nodes[i]->neighbors.clear();
+            }
+            other.nodes.clear();
+            for (int j = 0; j < other.edges.size(); j++){
+                Edge* newEdge = new Edge;
+                newEdge->firstNode = other.edges[j]->firstNode;
+                newEdge->secondNode = other.edges[j]->secondNode;
+                newEdge->weight = other.edges[j]->weight;
+            }
+            other.edges.clear();
+            other.numberOfNodes = 0;
+
+        }
+
         void addNode(T value){
             Node* newNode = new Node;
             newNode->value = value;
