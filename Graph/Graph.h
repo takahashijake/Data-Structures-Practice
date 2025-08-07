@@ -93,21 +93,22 @@ class UndirectedGraph{
     public:
         
         UndirectedGraph(){
+            numberOfNodes = 0;
         }
 
-        UndirectedGraph(const UnDirectedGraph& other){
+        UndirectedGraph(const UndirectedGraph& other){
+            //The other class is the class where data is being pulled from 
             std::cout << "Copy constructor successfully called!" << std::endl;
-            for (int i = 0; i < this->nodes.size(); i++){
+            for (int i = 0; i < other.nodes.size(); i++){
                 Node* newNode = new Node;
-                newNode->value = this->nodes[i]->value;
-                other->nodes.push_back(newNode);
+                newNode->value = other.nodes[i]->value;
+                nodes.push_back(newNode);
             }
-            for (int j = 0; j < this->edges.size(); j++){
-                Edge* newEdge = new Edge;
-                newEdge->firstNode = this->edges[j]->firstNode;
-                newEdge->secondNode = this->edges[j]->secondNode;
-                newEdge->weight = this->edges[j]->weight;
-                other->edges.push_back(newEdge);
+            for (int j = 0; j < other.edges.size(); j++){
+                T firstValue = other.edges[j]->firstNode->value;
+                T secondValue = other.edges[j]->secondNode->value;
+                int weight = other.edges[j]->weight;
+                addEdge(firstValue, secondValue, weight);
             }
         }
 
@@ -305,6 +306,7 @@ class UndirectedGraph{
             for (int k = 0; k < edges.size(); k++){
                 delete edges[k];
             }
+            std::cout << "Memory successfully freed! " << std::endl;
         }
 };
 
