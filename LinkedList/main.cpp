@@ -12,6 +12,9 @@ int main(){
     LL.reverseList();
     LL.reverseList();
     LL.printList();
+    std::cout << "---Testing Copy Constructor---" << std::endl;
+    LinkedList<int> newList = LL;
+    newList.printList();
     
 
     return 0;
