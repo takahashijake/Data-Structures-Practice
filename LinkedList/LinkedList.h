@@ -21,6 +21,24 @@ class LinkedList{
         LinkedList(){
             root = nullptr;
         }
+
+        LinkedList(const LinkedList& other){
+            std::cout << "Copy constructor called! " << std::endl;
+            root = nullptr;
+            Node* current = other.root;
+            while (current != nullptr){
+                T value = current->value;
+                Append(value);
+                current = current->next;
+            }
+        }
+
+        LinkedList& operator=(const LinkedList& other){
+            std::cout << "Copy assignment operator called! " << std::endl;
+            if (this != &other){
+                
+            }
+        }
         void Append(T value){
             Node* newNode = new Node;
             newNode->value = value;
