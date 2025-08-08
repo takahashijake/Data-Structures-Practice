@@ -18,9 +18,8 @@ int main(){
         practiceArray.append(k);
     }
     practiceArray.print();
-    myArray = practiceArray;
+    myArray = std::move(practiceArray);
     myArray.print();
-    myArray.append(4);
-    myArray.append(5);
-    myArray.print();
+    practiceArray.print();
+    return 0;
 }

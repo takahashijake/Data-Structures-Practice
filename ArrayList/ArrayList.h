@@ -31,7 +31,6 @@ class ArrayList{
             std::cout << "Move constructor called!" << std::endl;
             count = other.getArrCount();
             capacity = other.getArrCapacity();
-            arr = new T[capacity];
             arr = std::move(other.arr);
             other.capacity = 10;
             other.count = 0; 
@@ -50,6 +49,18 @@ class ArrayList{
             return *this;
         }
 
+        ArrayList& operator=(ArrayList&& other) noexcept{
+            if (this != &other){
+                std::cout << "Move assignment operator called! " << std::endl;
+                count = other.getArrCount();
+                capacity = other.getArrCapacity();
+                arr = std::move(other.arr);
+                other.count = 0;
+                other.capacity = 10;
+                other.arr = new T[capacity];
+            }
+            return *this;
+        }
 
 
         void append(T value){
