@@ -17,6 +17,29 @@ class ArrayList{
             arr = new T[capacity];
         }
 
+        ArrayList(const ArrayList& other){
+            std::cout << "Copy constructor called!" << std::endl;
+            int arrayCount = other.getArrCount();
+            count = 0;
+            arr = new T[capacity];
+            for (int i = 0; i < arrayCount; i++){
+                append(other.arr[i]);
+            }
+        }
+
+        ArrayList(ArrayList&& other) noexcept{
+            std::cout << "Move constructor called!" << std::endl;
+            count = other.getArrCount();
+            capacity = other.getArrCapacity();
+            arr = new T[capacity];
+            arr = std::move(other.arr);
+            other.capacity = 10;
+            other.count = 0; 
+            other.arr = new T[capacity]; 
+        }
+
+
+
         void append(T value){
             arr[count] = value;
             count++;
@@ -78,6 +101,14 @@ class ArrayList{
             count++;
         }
 
+        int getArrCount() const{
+            return count;
+        }
+
+        int getArrCapacity() const{
+            return capacity;
+        }
+
         void deleteAtIndex(int index){
             if (index >= capacity){
                 throw std::logic_error("Given index is greater than capacity!");
@@ -92,6 +123,9 @@ class ArrayList{
         }
 
         void print(){
+            if (count == 0){
+                std::cout << "Array is empty!" << std::endl;
+            }
             for (int i = 0; i < count; i++){
                 std::cout << arr[i] << " ";
             }
