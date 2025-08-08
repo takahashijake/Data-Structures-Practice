@@ -17,7 +17,7 @@ class ArrayList{
             arr = new T[capacity];
         }
 
-        ArrayList(const ArrayList& other){
+        ArrayList(const ArrayList& other){ //Copy constructor 
             std::cout << "Copy constructor called!" << std::endl;
             int arrayCount = other.getArrCount();
             count = 0;
@@ -36,6 +36,18 @@ class ArrayList{
             other.capacity = 10;
             other.count = 0; 
             other.arr = new T[capacity]; 
+        }
+
+        ArrayList& operator=(const ArrayList& other){
+            if (this != &other){
+                std::cout << "Copy assignment operator called!" << std::endl;
+                count = 0;
+                arr = new T[capacity];
+                for (int i = 0; i < other.getArrCount(); i++){
+                    append(other.arr[i]);
+                }
+            }
+            return *this;
         }
 
 

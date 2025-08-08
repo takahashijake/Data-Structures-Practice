@@ -7,11 +7,20 @@ int main(){
     for (int i = 0; i < 10; i++){
         myArray.append(i);
     }
+    ArrayList<int> newArray = std::move(myArray);
     myArray.print();
-    myArray.insertAtIndex(3, 15);
+    for (int i = 0; i < 10; i++){
+        myArray.append(i);
+    }
     myArray.print();
-    myArray.deleteAtIndex(3);
+    ArrayList<int> practiceArray;
+    for (int k = 20; k >= 8; k--){
+        practiceArray.append(k);
+    }
+    practiceArray.print();
+    myArray = practiceArray;
     myArray.print();
-    myArray.deleteAtIndex(3);
+    myArray.append(4);
+    myArray.append(5);
     myArray.print();
 }
