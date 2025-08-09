@@ -36,9 +36,45 @@ class LinkedList{
         LinkedList& operator=(const LinkedList& other){
             std::cout << "Copy assignment operator called! " << std::endl;
             if (this != &other){
-                
+                Node* current = root;
+                while (current != nullptr){
+                    Node* temp = current->next;
+                    delete current;
+                    current = temp;
+                }
+                root = nullptr;
+                Node* temp = other.root;
+                while (temp != nullptr){
+                    T value = temp->value;
+                    Append(value);
+                    temp = temp->next;
+                }
             }
+            return *this;
         }
+
+        LinkedList(LinkedList&& other){
+            std::cout << "Move constructor called! " << std::endl;
+            root = std::move(other.root);
+            other.root = nullptr;
+        }
+
+        LinkedList& operator=(LinkedList&& other){
+            if (this != &other){
+                std::cout << "Move assignment operator called!" << std::endl;
+                Node* current = root;
+                while (current != nullptr){
+                    Node* temp = current->next;
+                    delete current;
+                    current = temp;
+                }
+                root = std::move(other.root);
+                other.root = nullptr;
+            }
+            return *this;
+        }
+
+
         void Append(T value){
             Node* newNode = new Node;
             newNode->value = value;
