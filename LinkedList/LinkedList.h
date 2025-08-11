@@ -73,7 +73,15 @@ class LinkedList{
             }
             return *this;
         }
-
+        void clearList(){
+            Node* current = root;
+            while (current != nullptr){
+                Node* temp = current->next;
+                delete current;
+                current = temp;
+            }
+        }
+       
 
         void Append(T value){
             Node* newNode = new Node;
@@ -237,7 +245,31 @@ class LinkedList{
             std::cout << "Destructor called successfully!" << std::endl;
         }
 
+        friend LinkedList<T> operator+(const LinkedList<T>& first, const LinkedList<T>& second);
 };
+
+template <typename T>
+LinkedList<T> operator+(const LinkedList<T>& first, const LinkedList<T>& second){
+    if (first.getSize() != second.getSize()){
+        return;
+    }
+    LinkedList<T> result;
+
+    typename LinkedList<T>::Node* currentFirst = first.root;
+    typename LinkedList<T>::Node* currentSecond = second.root;
+
+    while (currentFirst != nullptr && currentSecond != nullptr){
+        typename LinkedList<T>::Node* firstTemp = currentFirst->next;
+        typename LinkedList<T>::Node* secondTemp = currentSecond->next;
+
+        T value = currentFirst->value + currentSecond->value;
+        result.Append(value);
+
+        currentFirst = firstTemp;
+        currentSecond = secondTemp;
+    }
+    return result;
+}
 
 
 #endif
