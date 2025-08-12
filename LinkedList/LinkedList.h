@@ -100,7 +100,27 @@ class LinkedList{
                 secondCurrent = secondCurrent->next;
             }
             return result;
+        }
 
+        LinkedList operator*(const LinkedList& other){
+            int firstSize = getSize();
+            int secondSize = other.getSize();
+
+            LinkedList<T> result;
+
+            Node* current = root;
+            while (current != nullptr){
+                T value = current->value;
+                result.Append(value);
+                current = current->next;
+            }
+            Node* secondCurrent = other.root;
+            while (secondCurrent != nullptr){
+                T value = secondCurrent->value;
+                result.Append(value);
+                secondCurrent = secondCurrent->next;
+            }
+            return result;
         }
         void Append(T value){
             Node* newNode = new Node;
