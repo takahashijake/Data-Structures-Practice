@@ -31,6 +31,17 @@ class LinkedList{
             std::cout << "Linked List class successfully created!" << std::endl;
         }
  
+        LinkedList(const LinkedList& other){
+            std::cout << "Copy constructor called! " << std::endl;
+            Node* current = root.get();
+            while (current != nullptr){
+                T value = current->value;
+                addNode(value);
+                std::cout << "woop" << std::endl;
+                current = current->next.get();
+            }
+        }
+
         void addNode(T value){
 
             std::unique_ptr<Node> newNode = std::make_unique<Node>();
@@ -39,16 +50,21 @@ class LinkedList{
             if (root == nullptr){
                 root = std::move(newNode);
                 tail = root.get();
+                std::cout << "he";
             }
-            else{
+            else if (root != nullptr){
                 tail->next = std::move(newNode);
                 tail = tail->next.get();
+                std::cout << "ha";
+            }
+            else{
+                std::cout << "na";
             }
         }
 
         void printList() const {
             if (root == nullptr){
-                std::cout << "List is empty!" << std::endl;
+                std::cout << "List is empty!";
             }
             Node* current = root.get();
             while (current != nullptr){
@@ -157,6 +173,11 @@ class LinkedList{
             tail = tailParent;
         }
 
+        void dataPrint(){
+            std::cout << "value of root: " << root->value << std::endl;
+            std::cout << "value of tail: " << tail->value << std::endl;
+        }
+
         ~LinkedList(){
             std::cout << "Deconstructor called successfully!" << std::endl;
         }
@@ -169,12 +190,15 @@ int main(){
     myList.addNode(2);
     myList.addNode(3);
     myList.addNode(4);
+    std::cout << "-----Testing Copy Constructor-----" << std::endl;
+    LinkedList<int> myList = newList;
+    std::cout << "myList Content: ";
     myList.printList();
-    myList.deleteEnd();
-    myList.printList();
-    myList.deleteEnd();
-    myList.printList();
+    myList.dataPrint();
+    std::cout << "newList Content: ";
+    newList.printList();
 
+   
 
     return 0;
 
