@@ -73,6 +73,7 @@ class LinkedList{
             }
             return *this;
         }
+
         void clearList(){
             Node* current = root;
             while (current != nullptr){
@@ -81,8 +82,26 @@ class LinkedList{
                 current = temp;
             }
         }
-       
 
+        LinkedList operator+(const LinkedList& other){
+            if (other.getSize() != getSize()){
+                return LinkedList();
+            }
+            LinkedList<T> result;
+
+            Node* firstCurrent = other.root;
+            Node* secondCurrent = root;
+
+            while (firstCurrent != nullptr && secondCurrent != nullptr){
+                T value = firstCurrent->value + secondCurrent->value;
+                result.Append(value);
+                
+                firstCurrent = firstCurrent->next;
+                secondCurrent = secondCurrent->next;
+            }
+            return result;
+
+        }
         void Append(T value){
             Node* newNode = new Node;
             newNode->value = value;
@@ -129,14 +148,13 @@ class LinkedList{
             std::cout << std::endl;
         }
 
-        int getSize(){
+        int getSize() const {
             int count = 0;
             Node* current = root;
             while (current != nullptr){
                 count++;
                 current = current->next;
             }       
-            std::cout << "The linked list is " << count << " elements long!" << std::endl;
 
             return count;
         }
@@ -242,34 +260,11 @@ class LinkedList{
                 delete current;
                 current = temp;
             }
-            std::cout << "Destructor called successfully!" << std::endl;
         }
 
-        friend LinkedList<T> operator+(const LinkedList<T>& first, const LinkedList<T>& second);
+        
 };
 
-template <typename T>
-LinkedList<T> operator+(const LinkedList<T>& first, const LinkedList<T>& second){
-    if (first.getSize() != second.getSize()){
-        return;
-    }
-    LinkedList<T> result;
-
-    typename LinkedList<T>::Node* currentFirst = first.root;
-    typename LinkedList<T>::Node* currentSecond = second.root;
-
-    while (currentFirst != nullptr && currentSecond != nullptr){
-        typename LinkedList<T>::Node* firstTemp = currentFirst->next;
-        typename LinkedList<T>::Node* secondTemp = currentSecond->next;
-
-        T value = currentFirst->value + currentSecond->value;
-        result.Append(value);
-
-        currentFirst = firstTemp;
-        currentSecond = secondTemp;
-    }
-    return result;
-}
 
 
 #endif
